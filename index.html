@@ -87,6 +87,9 @@ main{position:relative}
 .comp textarea{resize:none;flex:1}
 .comp button{width:46px;height:46px;border-radius:50%;background:var(--soft);font-size:20px;flex:none}
 .comp .send{background:var(--acc);color:#fff}.comp .rec{background:var(--gold)}
+.bigmic{width:84px;height:84px;border-radius:50%;background:var(--acc);color:#fff;font-size:36px;margin:2px auto;display:block}
+.bigmic.rec,.comp .micb.rec{background:var(--gold);color:#1c1b19}.bigmic.rec{animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.08)}}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stats .card{margin:0;text-align:center}.stats b{font-size:26px;display:block}
 .seg{display:flex;gap:6px;flex-wrap:wrap}.seg button{padding:9px 14px;border:1.5px solid var(--line);border-radius:10px;font-weight:600;background:var(--card)}
 .seg button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
@@ -355,7 +358,7 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const LANGS={en:'English',fr:'French',pt:'Portuguese',es:'Spanish'};
 const LS='deutsch_lehrer_v1';
 
-let S={xp:0,streak:0,last:'',u:{},known:{},miss:{},lang:'en',lvl:'A1',all:false,ts:0,packs:{},dlg:{},tr:true,ai:false};
+let S={xp:0,streak:0,last:'',u:{},known:{},miss:{},lang:'en',lvl:'A1',all:false,ts:0,packs:{},dlg:{},tr:true,ai:false,speak:false,hands:false,voice:false};
 try{Object.assign(S,JSON.parse(localStorage.getItem(LS)||'{}'))}catch(e){}
 let cloud=null,saveT=null;
 function save(){S.ts=Date.now();try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}
@@ -385,8 +388,34 @@ let SAMPLE=null;
 let VOICE=null;
 function pickVoice(){try{VOICE=speechSynthesis.getVoices().find(x=>/^de(-|_|$)/i.test(x.lang))||null}catch(e){}}
 try{if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice}}catch(e){}
-function say(t){t=String(t).replace(/\([^)]*\)/g,'').trim();if(!t)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='de-DE';if(VOICE)u.voice=VOICE;u.rate=.9;speechSynthesis.speak(u)}catch(e){}}
+function say(t,cb){t=String(t).split('\n').filter(l=>!/^\s*[✏✅\u{1F4A1}\u{1F4DD}]/u.test(l)).join(' ').replace(/\([^)]*\)/g,'').replace(/️/g,'').trim();
+ if(!t){cb&&cb();return}
+ try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='de-DE';if(VOICE)u.voice=VOICE;u.rate=.9;
+  if(cb){let done=false;const f=()=>{if(!done){done=true;cb()}};u.onend=f;u.onerror=f;setTimeout(f,Math.max(6000,t.length*120))}
+  speechSynthesis.speak(u)}catch(e){cb&&cb()}}
 const canSay=()=>{try{return 'speechSynthesis' in window}catch(e){return false}};
+
+/* speech input: browser speech recognition (German) if allowed here, else the Claude dictation mic */
+let DICT=null,SRC=window.SpeechRecognition||window.webkitSpeechRecognition,SRBAD=false,LCB=null,LISTEN=false,REC=null;
+(async()=>{DICT=await tryUse('dictation');if(DICT){try{DICT.onFinal(({text})=>{if(LCB&&text)LCB(text)});DICT.onState(({state})=>{LISTEN=state==='listening';micUI()})}catch(e){}}
+ if(UI.screen==='home'&&UI.tab==='talk'&&!UI.chat&&!(UI.dlg&&!UI.dlg.done))render()})();
+const useSR=()=>!!SRC&&!SRBAD;
+const hasSTT=()=>useSR()||!!DICT;
+function micUI(){document.querySelectorAll('.micb').forEach(b=>b.classList.toggle('rec',LISTEN))}
+function stopListen(){try{if(REC)REC.stop();else if(DICT&&LISTEN)DICT.stop()}catch(e){}}
+function listen(cb){
+ if(LISTEN){stopListen();return}
+ LCB=cb;
+ if(useSR()){try{REC=new SRC();REC.lang='de-DE';REC.interimResults=false;
+   REC.onresult=e=>{const t=e.results[0][0].transcript;if(LCB)LCB(t)};
+   REC.onerror=e=>{if(e.error==='not-allowed'||e.error==='service-not-allowed'){SRBAD=true;toast(DICT?'Mic blocked here. Tap 🎤 again to use the Claude mic.':'Microphone not available in this view. Open the standalone file in Chrome or Safari.');render()}};
+   REC.onend=()=>{REC=null;LISTEN=false;micUI()};
+   REC.start();LISTEN=true;micUI()}catch(e){REC=null;SRBAD=true;toast('Speech input failed. Tap 🎤 to try again.')}}
+ else if(DICT){try{DICT.start().catch(()=>{})}catch(e){}}
+ else toast('No microphone input available here.')}
+function sim(a,b){a=norm(a);b=norm(b);if(!a||!b)return 0;const m=a.length,n=b.length;let d=[];for(let j=0;j<=n;j++)d[j]=j;
+ for(let i=1;i<=m;i++){let p=d[0];d[0]=i;for(let j=1;j<=n;j++){const t=d[j];d[j]=Math.min(d[j]+1,d[j-1]+1,p+(a[i-1]===b[j-1]?0:1));p=t}}return 1-d[n]/Math.max(m,n)}
+
 const spk=t=>canSay()?` <button class="spk" data-a="say" data-t="${esc(t)}" aria-label="Listen">🔊</button>`:'';
 function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',2600)}
 
@@ -474,11 +503,14 @@ function vPractice(){const weak=Object.keys(S.miss).length;
 /* ---- Talk: scripted conversations ---- */
 function vTalk(){const D=UI.dlg;
  if(UI.chat)return vChat();
- if(!D)return `<div class="wrap"><h2>Talk 💬</h2><p class="mut">Real-life conversations. Pick the right reply, listen to the German, learn from the hints. Works offline.</p>${aiCard()}${ALLD().map(d=>{const n=d.steps.filter(s=>s.t==='y').length;return `<button class="card step" data-a="dlg" data-id="${esc(d.id)}"><span class="ic">${esc(d.ic||'💬')}</span><span class="tx"><b>${esc(d.t)}</b><small>${esc(d.lv||'')} · ${n} replies${d.pn?' · 📦 '+esc(d.pn):''}${S.dlg[d.id]!=null?' · best '+S.dlg[d.id]+'%':''}</small></span>${(S.dlg[d.id]||0)>=70?'<span class="chk">✓</span>':''}</button>`}).join('')}</div>`;
+ if(!D)return `<div class="wrap"><h2>Talk 💬</h2><p class="mut">Real-life conversations. Pick the right reply, listen to the German, learn from the hints. Works offline.</p>${speakCard()}${aiCard()}${ALLD().map(d=>{const n=d.steps.filter(s=>s.t==='y').length;return `<button class="card step" data-a="dlg" data-id="${esc(d.id)}"><span class="ic">${esc(d.ic||'💬')}</span><span class="tx"><b>${esc(d.t)}</b><small>${esc(d.lv||'')} · ${n} replies${d.pn?' · 📦 '+esc(d.pn):''}${S.dlg[d.id]!=null?' · best '+S.dlg[d.id]+'%':''}</small></span>${(S.dlg[d.id]||0)>=70?'<span class="chk">✓</span>':''}</button>`}).join('')}</div>`;
  const bub=D.hist.map(m=>m.r==='a'?`<div class="b a">${esc(m.de)}${canSay()?`<br><button class="spk" data-a="say" data-t="${esc(m.de)}">🔊</button>`:''}${S.tr!==false?`<small>${esc(m.en)}</small>`:''}</div>`:`<div class="b u">${esc(m.de)}${m.en?`<small>${esc(m.en)}</small>`:''}</div>`).join('');
  let panel;
  if(D.done)panel=`<div class="res"><div class="big">${D.res.pct}%</div><p class="mut">+${D.res.xp} XP · ${D.score}/${D.total} replies right first time</p><div class="row"><button class="ghost" data-a="dretry">Again</button><button class="primary" data-a="dback">Done</button></div></div>`;
- else panel=(D.fb?`<div class="fb bad" style="margin:0 0 8px">${esc(D.fb)}</div>`:'<p class="mut" style="margin:0 0 6px">Your reply:</p>')+D.opts.map(o=>`<button class="opt ${D.bad[o.k]?'bad':''}" data-a="dpick" data-k="${o.k}" ${D.bad[o.k]?'disabled':''}>${esc(o.de)}</button>`).join('');
+ else{const fb=D.fb?`<div class="fb bad" style="margin:0 0 8px">${esc(D.fb)}</div>`:'';
+  const opts=D.opts.map(o=>`<button class="opt ${D.bad[o.k]?'bad':''}" data-a="dpick" data-k="${o.k}" ${D.bad[o.k]?'disabled':''}>${esc(o.de)}</button>`).join('');
+  if(S.speak&&hasSTT())panel=`<div style="text-align:center"><button class="bigmic micb ${LISTEN?'rec':''}" data-a="dmic" aria-label="Speak">🎤</button><p class="mut" style="margin:6px 0">${LISTEN?'Listening… tap to stop':'Tap and say your reply in German'}</p>${D.heard?`<p style="margin:4px 0">I heard: <b>“${esc(D.heard)}”</b></p>`:''}${fb}${D.show?`<div style="text-align:left">${opts}</div>`:`<button class="ghost" data-a="dshow">💡 Show choices</button>`}</div>`;
+  else panel=fb+(fb?'':'<p class="mut" style="margin:0 0 6px">Your reply:</p>')+opts}
  return `<div class="chat"><div class="chips"><button class="chip" data-a="dback">← All</button><button class="chip" data-a="trtoggle">Translations: ${S.tr!==false?'on':'off'}</button><span class="chip" style="border:0">${esc(D.d.ic||'')} ${esc(D.d.t)}</span></div><div class="msgs" id="msgs">${bub}</div><div class="opts">${panel}</div></div>`}
 /* ---- optional AI teacher ---- */
 const LANGS2={en:'English',fr:'French',pt:'Portuguese',es:'Spanish'};
@@ -488,34 +520,42 @@ const SCN=[
 {id:'work',l:'💼 At work',p:'Roleplay: you are a colleague chatting with the student about work and the weekend.'},
 {id:'trip',l:'✈️ Travel',p:'Roleplay: you are a hotel receptionist in Vienna; the student arrives to check in. Begin by welcoming them.'},
 {id:'fix',l:'✏️ Fix my text',p:''}];
+function speakCard(){if(!canSay())return '';
+ if(!hasSTT())return `<div class="card mut"><b>🎤 Speak mode</b><br>Needs microphone access. Open the standalone file in Chrome or Safari (or use the Claude app) to answer by voice.</div>`;
+ return `<div class="card"><b>🎤 Speak mode</b><p class="mut">The partner speaks, you answer out loud in German. Choices stay hidden until you ask.</p><div class="seg"><button class="${S.speak?'on':''}" data-a="spk">Speak mode: ${S.speak?'on':'off'}</button>${useSR()?`<button class="${S.hands?'on':''}" data-a="hands">Hands-free: ${S.hands?'on':'off'}</button>`:''}</div></div>`}
 function aiCard(){
  if(!SAMPLE)return '';
  if(!S.ai)return `<div class="card"><b>🤖 AI teacher (optional)</b><p class="mut">Free conversation with corrections. It uses Claude and consumes tokens, so it is off by default.</p><button class="ghost" data-a="aion">Enable in this app</button></div>`;
  return `<h3>🤖 AI teacher · uses Claude tokens</h3>`+SCN.map(s=>`<button class="card step" data-a="scn" data-id="${s.id}"><span class="tx"><b>${s.l}</b></span></button>`).join('')+`<h3>Scripted conversations (free)</h3>`}
-function vChat(){const c=UI.chat;const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
- return `<div class="chat"><div class="chips"><button class="chip" data-a="chatback">← All</button>${SCN.map(s=>`<button class="chip ${s.id===c.scn?'on':''}" data-a="scn" data-id="${s.id}">${s.l}</button>`).join('')}</div><div class="msgs" id="msgs"></div>
- <div class="comp">${SR?`<button id="micb" data-a="mic" aria-label="Speak">🎤</button>`:''}<textarea id="ci" rows="2" placeholder="${c.scn==='fix'?'Paste your German text…':'Schreib auf Deutsch…'}"></textarea><button class="send" data-a="send" aria-label="Send">➤</button></div></div>`}
+function vChat(){const c=UI.chat;
+ return `<div class="chat"><div class="chips"><button class="chip" data-a="chatback">← All</button>${canSay()&&hasSTT()?`<button class="chip ${S.voice?'on':''}" data-a="voice">🎙️ Voice: ${S.voice?'on':'off'}</button>`:''}${SCN.map(s=>`<button class="chip ${s.id===c.scn?'on':''}" data-a="scn" data-id="${s.id}">${s.l}</button>`).join('')}</div><div class="msgs" id="msgs"></div>
+ <div class="comp">${hasSTT()?`<button class="micb ${LISTEN?'rec':''}" data-a="mic" aria-label="Speak">🎤</button>`:''}<textarea id="ci" rows="2" placeholder="${c.scn==='fix'?'Paste your German text…':'Schreib auf Deutsch…'}"></textarea><button class="send" data-a="send" aria-label="Send">➤</button></div></div>`}
 function paintChat(){const el=$('#msgs'),c=UI.chat;if(!el||!c)return;
  el.innerHTML=c.hist.map(m=>`<div class="b ${m.role==='user'?'u':'a'}">${esc(m.content||'…')}${m.role==='assistant'&&m.content&&canSay()?`<br><button class="spk" data-a="say" data-t="${esc(m.content)}">🔊</button>`:''}</div>`).join('')+(c.err?`<div class="b a mut">⚠️ ${esc(c.err)}</div>`:'');
  el.scrollTop=el.scrollHeight}
 function instr(){const c=UI.chat,sc=SCN.find(s=>s.id===c.scn),L=LANGS2[S.lang]||'English';
  if(sc.id==='fix')return `You are Lena, a kind German teacher. Student level: ${S.lvl}. The student's language: ${L}. The student sends German text. Reply in ${L} (keep German examples in German) with exactly this structure:\n✅ Corrected: <corrected German text>\n📝 Mistakes: up to 5 bullets "wrong → right: short reason"\n💡 Tip: one short tip.\nIf there are no mistakes, say so. If the text is not German, ask the student to write in German. Be concise. Plain text, no markdown.`;
- return `You are Lena, a friendly, patient German teacher. Student level: ${S.lvl}. The student's language for explanations: ${L}. Scenario: ${sc.p}\nRules: reply mainly in simple German suited to ${S.lvl}; at most 3 short sentences; end with one easy question. If the student's last message has German mistakes, begin with a line "✏️ <corrected sentence>" and one short explanation in ${L}, then continue. Add short glosses in ${L} in parentheses for hard words. If the student writes in another language, show how to say it in German. Plain text only, no markdown.`}
+ return `You are Lena, a friendly, patient German teacher. Student level: ${S.lvl}. The student's language for explanations: ${L}. Scenario: ${sc.p}\nRules: reply mainly in simple German suited to ${S.lvl}; at most 3 short sentences; end with one easy question. If the student's last message has German mistakes, begin with a line "✏️ <corrected sentence>", then a line "💡 <short explanation in ${L}>", then continue in German on new lines. Only the German conversation lines (not ✏️ or 💡 lines) are read aloud, so keep them short and natural. Add short glosses in ${L} in parentheses for hard words. If the student writes in another language, show how to say it in German. Plain text only, no markdown.`}
 async function ask(){const c=UI.chat;c.err='';const msgs=[{role:'user',content:instr()+'\n\nStart the session now with your first message.'},...c.hist.filter(m=>m.content)];
  const mine=c.hist.push({role:'assistant',content:''})-1;paintChat();
- try{const r=await SAMPLE(msgs,{cache:false,onText:({text})=>{if(UI.chat===c){c.hist[mine].content=text;paintChat()}}});c.hist[mine].content=r.text}
+ try{const r=await SAMPLE(msgs,{cache:false,onText:({text})=>{if(UI.chat===c){c.hist[mine].content=text;paintChat()}}});c.hist[mine].content=r.text;voiceReply(c,r.text)}
  catch(e){c.hist.splice(mine,1);c.err=e&&e.code==='rate_limited'?'Too many requests — wait a moment.':e&&e.code==='not_granted'?'AI access was declined.':'Could not reach the AI. Try again.'}
  if(UI.chat===c){c.busy=false;paintChat()}}
 function startChat(id){if(!SAMPLE||!S.ai)return;UI.chat={scn:id,hist:[],busy:true,err:''};
  if(id==='fix'){UI.chat.hist.push({role:'assistant',content:'Schick mir einen deutschen Text – ich korrigiere ihn.\n(Send me a German text and I will correct it.)'});UI.chat.busy=false;render()}
  else{render();ask()}}
 function sendChat(){const c=UI.chat,ci=$('#ci');if(!c||c.busy||!ci)return;const t=ci.value.trim();if(!t)return;ci.value='';c.hist.push({role:'user',content:t});c.busy=true;paintChat();ask()}
-let REC=null;
-function toggleMic(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;if(REC){REC.stop();return}
- try{REC=new SR();REC.lang='de-DE';REC.interimResults=false;REC.onresult=e=>{const ci=$('#ci');if(ci)ci.value+=(ci.value?' ':'')+e.results[0][0].transcript};REC.onend=()=>{REC=null;const b=$('#micb');if(b)b.classList.remove('rec')};REC.onerror=()=>{REC=null};REC.start();const b=$('#micb');if(b)b.classList.add('rec')}catch(e){REC=null}}
-function dlgAdv(){const D=UI.dlg;while(D.i<D.d.steps.length&&D.d.steps[D.i].t==='n'){const s=D.d.steps[D.i++];D.hist.push({r:'a',de:s.de,en:s.en||''})}
+function voiceReply(c,text){if(!S.voice||!canSay())return;say(text,()=>{if(UI.chat===c&&S.voice&&useSR()&&!LISTEN)listen(chatHeard)})}
+function chatHeard(t){LCB=null;try{if(DICT&&LISTEN&&!REC)DICT.stop()}catch(e){}const ci=$('#ci');if(ci){ci.value+=(ci.value?' ':'')+t;if(S.voice)sendChat()}}
+function dlgAdv(){const D=UI.dlg;const said=[];while(D.i<D.d.steps.length&&D.d.steps[D.i].t==='n'){const s=D.d.steps[D.i++];D.hist.push({r:'a',de:s.de,en:s.en||''});said.push(s.de)}
  if(D.i>=D.d.steps.length){const pct=D.total?Math.round(D.score/D.total*100):100,xp=D.score*10;S.xp+=xp;touch();S.dlg[D.d.id]=Math.max(S.dlg[D.d.id]||0,pct);save();D.done=true;D.res={pct,xp};return}
- D.opts=shuffle(D.d.steps[D.i].o.map((o,k)=>({...o,k})));D.fb='';D.bad={};D.miss=false}
+ D.opts=shuffle(D.d.steps[D.i].o.map((o,k)=>({...o,k})));D.fb='';D.bad={};D.miss=false;D.show=!(S.speak&&hasSTT());D.tries=0;D.heard='';
+ if(S.speak&&canSay()&&said.length)say(said.join(' '),()=>{if(S.hands&&useSR()&&UI.dlg===D&&!D.done&&!LISTEN)listen(heardDlg)})}
+function heardDlg(t){const D=UI.dlg;if(!D||D.done||!D.d.steps[D.i]||D.d.steps[D.i].t!=='y')return;LCB=null;try{if(DICT&&LISTEN&&!REC)DICT.stop()}catch(e){}
+ const st=D.d.steps[D.i];let best=-1,bs=0;st.o.forEach((o,k)=>{const s=sim(t,o.de);if(s>bs){bs=s;best=k}});D.heard=t;
+ if(best>=0&&bs>=0.75){ACT.dpick({k:String(best)});return}
+ D.tries=(D.tries||0)+1;D.fb='I heard it differently. Try again.';if(D.tries>=2)D.show=true;render();
+ if(S.hands&&useSR())setTimeout(()=>{if(UI.dlg===D&&!D.done&&!LISTEN)listen(heardDlg)},700)}
 function startDlg(id){const d=ALLD().find(x=>x.id===id);if(!d)return;UI.dlg={d,i:0,hist:[],score:0,total:d.steps.filter(s=>s.t==='y').length,done:false,opts:[],fb:'',bad:{},miss:false};dlgAdv();render()}
 
 function vMe(){const A=ALLU(),un=A.filter(u=>ustat(u).done).length,kn=Object.keys(S.known).length;
@@ -610,7 +650,12 @@ const ACT={
  aion(){S.ai=!S.ai;if(!S.ai)UI.chat=null;save();render()},
  scn(d){startChat(d.id)},
  send(){sendChat()},
- mic(){toggleMic()},
+ mic(){listen(chatHeard)},
+ spk(){S.speak=!S.speak;if(!S.speak)S.hands=false;save();render()},
+ hands(){S.hands=!S.hands;if(S.hands)S.speak=true;save();render()},
+ voice(){S.voice=!S.voice;save();render()},
+ dmic(){listen(heardDlg)},
+ dshow(){UI.dlg.show=true;render()},
  chatback(){UI.chat=null;render()},
  dlg(d){startDlg(d.id)},
  dpick(d){const D=UI.dlg,st=D.d.steps[D.i],o=st.o[+d.k];if(o.ok){if(!D.miss)D.score++;D.hist.push({r:'u',de:o.de,en:o.en});D.i++;dlgAdv()}else{D.miss=true;D.bad[d.k]=1;D.fb=o.f||'Not quite — try another reply.'}render()},
