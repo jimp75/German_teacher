@@ -11,6 +11,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Deutsch">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
 <title>Deutsch Lehrer – German Teacher</title>
 <style>
 :root{--bg:#f6f4ef;--card:#fff;--ink:#1c1b19;--mut:#6b675f;--line:#e6e1d6;--acc:#c8102e;--gold:#f2b705;--ok:#1f9d55;--okbg:#e4f6ec;--bad:#c8102e;--badbg:#fdeaea;--blue:#1f4e9c;--soft:#efebe2}
@@ -684,6 +685,7 @@ document.addEventListener('keydown',e=>{
  if(e.key==='Enter'&&e.target.id==='fi'){e.preventDefault();ACT.check()}
  if(e.key==='Enter'&&!e.shiftKey&&e.target.id==='ci'&&window.matchMedia('(hover:hover)').matches){e.preventDefault();sendChat()}
 });
+if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0){addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})})}
 render();
 </script>
 </body>
