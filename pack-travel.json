@@ -1,0 +1,53 @@
+{
+ "id": "travel",
+ "name": "Travel pack",
+ "version": 1,
+ "units": [
+  {
+   "id": "t1", "lv": "A2", "ic": "✈️", "t": "Travel & transport", "s": "Trains, planes and hotels",
+   "notes": [
+    ["h", "Getting around"],
+    ["ex", [
+      ["Ich fahre mit dem Zug nach Berlin.", "I travel to Berlin by train."],
+      ["Wann fährt der Zug ab?", "When does the train leave?"],
+      ["Ich habe ein Zimmer reserviert.", "I have booked a room."],
+      ["Wo ist der Flughafen?", "Where is the airport?"]
+    ]],
+    ["tip", "Means of transport use mit + dative: mit dem Zug, mit dem Bus, mit der U-Bahn, mit dem Flugzeug."],
+    ["h", "Useful verb: fahren"],
+    ["tbl", ["", "fahren"], [["ich","fahre"],["du","fährst"],["er/sie/es","fährt"],["wir","fahren"],["ihr","fahrt"],["sie/Sie","fahren"]]]
+   ],
+   "v": [["der Zug","train"],["der Bus","bus"],["das Flugzeug","airplane"],["der Flughafen","airport"],["der Bahnhof","station"],["die Fahrkarte","ticket"],["das Gleis","platform"],["das Zimmer","room"],["die Reise","trip"],["abfahren","to depart"],["reservieren","to book"],["der Koffer","suitcase"]],
+   "x": [
+    {"t":"mc","q":"Which is correct?","o":["Ich fahre mit dem Zug.","Ich fahre mit der Zug.","Ich fahre mit den Zug.","Ich fahre mit Zug dem."],"a":0,"e":"mit + dative; der Zug → dem Zug."},
+    {"t":"fill","q":"Du ___ nach Wien. (fahren)","a":["fährst"],"e":"fahren: du fährst (a → ä)."},
+    {"t":"mc","q":"“der Flughafen” means…","o":["station","airport","suitcase","platform"],"a":1,"e":"Flug = flight, Hafen = port."},
+    {"t":"order","q":"When does the train leave?","a":"Wann fährt der Zug ab?","e":"Separable verb: abfahren → fährt … ab."},
+    {"t":"fill","q":"Ich habe ein Zimmer ___. (reservieren, Perfekt)","a":["reserviert"],"e":"Verbs in -ieren: participle without ge-."},
+    {"t":"mc","q":"“Ich fahre ___ Bus.”","o":["mit dem","mit den","mit der","mit das"],"a":0,"e":"der Bus → mit dem Bus."}
+   ]
+  }
+ ],
+ "dialogues": [
+  {
+   "id": "hotel", "lv": "A2", "ic": "🏨", "t": "Hotel check-in",
+   "steps": [
+    {"t":"n","de":"Guten Abend! Willkommen im Hotel Sonne.","en":"Good evening! Welcome to Hotel Sonne."},
+    {"t":"y","o":[
+      {"de":"Guten Abend! Ich habe ein Zimmer reserviert.","en":"Good evening! I have booked a room.","ok":1},
+      {"de":"Guten Abend! Ich reserviert ein Zimmer.","en":"","ok":0,"f":"Perfekt needs haben + participle: Ich habe … reserviert."}
+    ]},
+    {"t":"n","de":"Wie ist Ihr Name, bitte?","en":"What is your name, please?"},
+    {"t":"y","o":[
+      {"de":"Mein Name ist Schmidt.","en":"My name is Schmidt.","ok":1},
+      {"de":"Ich Name ist Schmidt.","en":"","ok":0,"f":"my name = mein Name."}
+    ]},
+    {"t":"n","de":"Ihr Zimmer ist im dritten Stock. Das Frühstück ist von sieben bis zehn Uhr.","en":"Your room is on the third floor. Breakfast is from seven to ten."},
+    {"t":"y","o":[
+      {"de":"Danke! Wo ist der Aufzug?","en":"Thanks! Where is the elevator?","ok":1},
+      {"de":"Danke! Wo bist der Aufzug?","en":"","ok":0,"f":"A thing “is”: ist, not bist."}
+    ]}
+   ]
+  }
+ ]
+}

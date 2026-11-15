@@ -1,0 +1,660 @@
+{
+ "id": "b1-grammar",
+ "name": "B1 grammar",
+ "version": 1,
+ "units": [
+  {
+   "id": "b1",
+   "lv": "B1",
+   "ic": "🔗",
+   "t": "Subordinate clauses",
+   "s": "weil, dass, wenn, obwohl, als, ob",
+   "notes": [
+    [
+     "h",
+     "Verb to the END"
+    ],
+    [
+     "ex",
+     [
+      [
+       "Ich bleibe zu Hause, weil ich krank bin.",
+       "I stay at home because I am ill."
+      ],
+      [
+       "Ich weiß, dass du recht hast.",
+       "I know that you are right."
+      ],
+      [
+       "Ich frage, ob er Zeit hat.",
+       "I ask whether he has time."
+      ],
+      [
+       "Obwohl es regnet, gehen wir spazieren.",
+       "Although it rains, we go for a walk."
+      ]
+     ]
+    ],
+    [
+     "tip",
+     "If the subordinate clause comes FIRST, the main clause starts with its verb: Weil ich müde bin, gehe ich ins Bett."
+    ],
+    [
+     "tip",
+     "wenn = whenever / if (present, repeated). als = when (one event in the past)."
+    ]
+   ],
+   "v": [
+    [
+     "weil",
+     "because"
+    ],
+    [
+     "dass",
+     "that"
+    ],
+    [
+     "wenn",
+     "if / whenever"
+    ],
+    [
+     "obwohl",
+     "although"
+    ],
+    [
+     "als",
+     "when (past, once)"
+    ],
+    [
+     "ob",
+     "whether"
+    ],
+    [
+     "damit",
+     "so that"
+    ],
+    [
+     "bevor",
+     "before"
+    ],
+    [
+     "nachdem",
+     "after"
+    ],
+    [
+     "während",
+     "while"
+    ]
+   ],
+   "x": [
+    {
+     "t": "fill",
+     "q": "Ich bleibe zu Hause, weil ich krank ___. (sein)",
+     "a": [
+      "bin"
+     ],
+     "e": "Verb at the end after weil."
+    },
+    {
+     "t": "mc",
+     "q": "Ich weiß, ___ er morgen kommt.",
+     "o": [
+      "dass",
+      "das",
+      "weil",
+      "wenn"
+     ],
+     "a": 0,
+     "e": "dass = that (conjunction); das = the / that (pronoun)."
+    },
+    {
+     "t": "order",
+     "q": "Because I am tired, I go to bed.",
+     "a": "Weil ich müde bin, gehe ich ins Bett.",
+     "e": "Subordinate clause first → verb comes next in the main clause."
+    },
+    {
+     "t": "mc",
+     "q": "Obwohl es regnet, ___.",
+     "o": [
+      "gehen wir spazieren",
+      "wir gehen spazieren",
+      "wir spazieren gehen",
+      "spazieren wir gehen"
+     ],
+     "a": 0,
+     "e": "Subordinate clause first → verb first in the main clause."
+    },
+    {
+     "t": "fill",
+     "q": "Ich frage, ___ er Zeit hat. (whether)",
+     "a": [
+      "ob"
+     ],
+     "e": ""
+    },
+    {
+     "t": "mc",
+     "q": "Als ich ein Kind ___, wohnte ich in Lyon.",
+     "o": [
+      "war",
+      "bin",
+      "sein",
+      "wäre"
+     ],
+     "a": 0,
+     "e": "als + single past event → war."
+    },
+    {
+     "t": "mc",
+     "q": "“Whenever I am tired, I drink coffee.”",
+     "o": [
+      "Wenn ich müde bin, trinke ich Kaffee.",
+      "Als ich müde bin, trinke ich Kaffee.",
+      "Wenn ich bin müde, trinke ich Kaffee.",
+      "Als ich bin müde, trinke ich Kaffee."
+     ],
+     "a": 0,
+     "e": "Repeated / present → wenn; verb at the end."
+    },
+    {
+     "t": "order",
+     "q": "I know that you are right.",
+     "a": "Ich weiß, dass du recht hast.",
+     "e": ""
+    }
+   ]
+  },
+  {
+   "id": "b2",
+   "lv": "B1",
+   "ic": "💭",
+   "t": "Konjunktiv II",
+   "s": "Wishes, polite requests, unreal conditions",
+   "notes": [
+    [
+     "h",
+     "Key forms"
+    ],
+    [
+     "tbl",
+     [
+      "",
+      "sein",
+      "haben",
+      "werden",
+      "können"
+     ],
+     [
+      [
+       "ich",
+       "wäre",
+       "hätte",
+       "würde",
+       "könnte"
+      ],
+      [
+       "du",
+       "wärst",
+       "hättest",
+       "würdest",
+       "könntest"
+      ],
+      [
+       "er/sie/es",
+       "wäre",
+       "hätte",
+       "würde",
+       "könnte"
+      ],
+      [
+       "wir",
+       "wären",
+       "hätten",
+       "würden",
+       "könnten"
+      ]
+     ]
+    ],
+    [
+     "ex",
+     [
+      [
+       "Ich hätte gern einen Kaffee.",
+       "I would like a coffee."
+      ],
+      [
+       "Könnten Sie mir helfen?",
+       "Could you help me?"
+      ],
+      [
+       "Wenn ich Zeit hätte, würde ich reisen.",
+       "If I had time, I would travel."
+      ],
+      [
+       "An deiner Stelle würde ich früher gehen.",
+       "In your place I would leave earlier."
+      ]
+     ]
+    ],
+    [
+     "tip",
+     "For most verbs use würde + infinitive (ich würde gehen). Use the short forms for sein, haben and modal verbs."
+    ]
+   ],
+   "v": [
+    [
+     "würde",
+     "would"
+    ],
+    [
+     "hätte",
+     "would have / had"
+    ],
+    [
+     "wäre",
+     "would be / were"
+    ],
+    [
+     "könnte",
+     "could"
+    ],
+    [
+     "sollte",
+     "should"
+    ],
+    [
+     "gern",
+     "gladly"
+    ],
+    [
+     "vielleicht",
+     "perhaps"
+    ],
+    [
+     "eigentlich",
+     "actually"
+    ],
+    [
+     "der Wunsch",
+     "wish"
+    ],
+    [
+     "höflich",
+     "polite"
+    ],
+    [
+     "an deiner Stelle",
+     "in your place"
+    ]
+   ],
+   "x": [
+    {
+     "t": "fill",
+     "q": "Ich ___ gern einen Kaffee. (haben, Konjunktiv II)",
+     "a": [
+      "hätte"
+     ],
+     "e": ""
+    },
+    {
+     "t": "mc",
+     "q": "Polite: “___ Sie mir bitte helfen?”",
+     "o": [
+      "Könnten",
+      "Können",
+      "Konnten",
+      "Gekonnt"
+     ],
+     "a": 0,
+     "e": ""
+    },
+    {
+     "t": "fill",
+     "q": "Wenn ich reich ___, würde ich reisen. (sein)",
+     "a": [
+      "wäre"
+     ],
+     "e": ""
+    },
+    {
+     "t": "order",
+     "q": "If I had time, I would travel.",
+     "a": "Wenn ich Zeit hätte, würde ich reisen.",
+     "e": ""
+    },
+    {
+     "t": "mc",
+     "q": "“Ich würde das nicht tun” means…",
+     "o": [
+      "I wouldn’t do that",
+      "I didn’t do that",
+      "I don’t do that",
+      "I am doing that"
+     ],
+     "a": 0,
+     "e": ""
+    },
+    {
+     "t": "mc",
+     "q": "An deiner Stelle ___ ich früher gehen.",
+     "o": [
+      "würde",
+      "werde",
+      "wurde",
+      "wird"
+     ],
+     "a": 0,
+     "e": "würde (Konjunktiv II) vs wurde (past of werden)."
+    },
+    {
+     "t": "fill",
+     "q": "Ich ___ gern Pilot. (sein)",
+     "a": [
+      "wäre"
+     ],
+     "e": ""
+    },
+    {
+     "t": "mc",
+     "q": "Which is the most polite?",
+     "o": [
+      "Ich hätte gern ein Wasser.",
+      "Ich will ein Wasser.",
+      "Gib mir ein Wasser.",
+      "Wasser!"
+     ],
+     "a": 0,
+     "e": ""
+    }
+   ]
+  },
+  {
+   "id": "b3",
+   "lv": "B1",
+   "ic": "🧵",
+   "t": "Relative clauses",
+   "s": "der Mann, der …",
+   "notes": [
+    [
+     "h",
+     "Relative pronoun"
+    ],
+    [
+     "p",
+     "Gender and number come from the noun it refers to. The <b>case</b> comes from its role inside the relative clause. The verb goes to the end."
+    ],
+    [
+     "tbl",
+     [
+      "",
+      "m",
+      "f",
+      "n",
+      "pl"
+     ],
+     [
+      [
+       "Nominative",
+       "der",
+       "die",
+       "das",
+       "die"
+      ],
+      [
+       "Accusative",
+       "den",
+       "die",
+       "das",
+       "die"
+      ],
+      [
+       "Dative",
+       "dem",
+       "der",
+       "dem",
+       "denen"
+      ]
+     ]
+    ],
+    [
+     "ex",
+     [
+      [
+       "Das ist der Mann, der neben mir wohnt.",
+       "That is the man who lives next to me."
+      ],
+      [
+       "Das ist die Frau, die ich kenne.",
+       "That is the woman whom I know."
+      ],
+      [
+       "Das ist das Buch, das ich lese.",
+       "That is the book that I am reading."
+      ],
+      [
+       "Das sind die Kinder, denen ich helfe.",
+       "Those are the children I help."
+      ]
+     ]
+    ]
+   ],
+   "v": [
+    [
+     "der Relativsatz",
+     "relative clause"
+    ],
+    [
+     "der Nachbar",
+     "neighbour"
+    ],
+    [
+     "die Nachbarin",
+     "neighbour (f)"
+    ],
+    [
+     "das Gebäude",
+     "building"
+    ],
+    [
+     "der Film",
+     "film"
+    ],
+    [
+     "die Wohnung",
+     "flat"
+    ],
+    [
+     "kennen",
+     "to know (a person)"
+    ],
+    [
+     "lesen",
+     "to read"
+    ],
+    [
+     "neben",
+     "next to"
+    ],
+    [
+     "der Arzt",
+     "doctor"
+    ]
+   ],
+   "x": [
+    {
+     "t": "fill",
+     "q": "Das ist der Mann, ___ neben mir wohnt. (who)",
+     "a": [
+      "der"
+     ],
+     "e": "Masculine, subject → der."
+    },
+    {
+     "t": "fill",
+     "q": "Das ist die Frau, ___ ich kenne. (whom)",
+     "a": [
+      "die"
+     ],
+     "e": "Feminine accusative = die."
+    },
+    {
+     "t": "mc",
+     "q": "Das ist das Buch, ___ ich lese.",
+     "o": [
+      "das",
+      "dem",
+      "der",
+      "den"
+     ],
+     "a": 0,
+     "e": "Neuter accusative = das."
+    },
+    {
+     "t": "mc",
+     "q": "Das sind die Kinder, ___ ich helfe.",
+     "o": [
+      "die",
+      "denen",
+      "den",
+      "der"
+     ],
+     "a": 1,
+     "e": "helfen + dative plural → denen."
+    },
+    {
+     "t": "mc",
+     "q": "Der Film, ___ ich gestern gesehen habe, war toll.",
+     "o": [
+      "den",
+      "der",
+      "dem",
+      "das"
+     ],
+     "a": 0,
+     "e": "Masculine accusative → den."
+    },
+    {
+     "t": "order",
+     "q": "The woman who lives here is my teacher.",
+     "a": "Die Frau, die hier wohnt, ist meine Lehrerin.",
+     "e": ""
+    },
+    {
+     "t": "mc",
+     "q": "In a relative clause, the conjugated verb is…",
+     "o": [
+      "at the end",
+      "second",
+      "first",
+      "anywhere"
+     ],
+     "a": 0,
+     "e": ""
+    },
+    {
+     "t": "fill",
+     "q": "Das ist der Freund, mit ___ ich reise. (dative, masc.)",
+     "a": [
+      "dem"
+     ],
+     "e": "mit + dative → dem."
+    }
+   ]
+  }
+ ],
+ "dialogues": [
+  {
+   "id": "opinion",
+   "lv": "B1",
+   "ic": "🗣️",
+   "t": "Giving your opinion",
+   "steps": [
+    {
+     "t": "n",
+     "de": "Was denkst du über Hausaufgaben?",
+     "en": "What do you think about homework?"
+    },
+    {
+     "t": "y",
+     "o": [
+      {
+       "de": "Ich finde, dass sie sinnvoll sind.",
+       "en": "I think they make sense.",
+       "ok": 1
+      },
+      {
+       "de": "Ich finde, dass sie sind sinnvoll.",
+       "en": "",
+       "ok": 0,
+       "f": "After dass the verb goes to the end."
+      }
+     ]
+    },
+    {
+     "t": "n",
+     "de": "Warum?",
+     "en": "Why?"
+    },
+    {
+     "t": "y",
+     "o": [
+      {
+       "de": "Weil man dadurch besser lernt.",
+       "en": "Because you learn better that way.",
+       "ok": 1
+      },
+      {
+       "de": "Weil man lernt dadurch besser.",
+       "en": "",
+       "ok": 0,
+       "f": "After weil: verb at the end."
+      }
+     ]
+    },
+    {
+     "t": "n",
+     "de": "Aber hast du genug Freizeit?",
+     "en": "But do you have enough free time?"
+    },
+    {
+     "t": "y",
+     "o": [
+      {
+       "de": "Wenn ich weniger Hausaufgaben hätte, würde ich mehr Sport machen.",
+       "en": "If I had less homework, I would do more sport.",
+       "ok": 1
+      },
+      {
+       "de": "Wenn ich weniger Hausaufgaben habe, würde ich mehr Sport machen.",
+       "en": "",
+       "ok": 0,
+       "f": "Unreal condition → Konjunktiv II: hätte."
+      }
+     ]
+    },
+    {
+     "t": "n",
+     "de": "Das verstehe ich gut.",
+     "en": "I understand that well."
+    },
+    {
+     "t": "y",
+     "o": [
+      {
+       "de": "Ich bin froh, dass du das verstehst.",
+       "en": "I am glad that you understand.",
+       "ok": 1
+      },
+      {
+       "de": "Ich bin froh, dass du verstehst das.",
+       "en": "",
+       "ok": 0,
+       "f": "Verb at the end of the dass-clause."
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

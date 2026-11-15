@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Deutsch Lehrer – German Teacher</title>
+<style>
+:root{--bg:#f6f4ef;--card:#fff;--ink:#1c1b19;--mut:#6b675f;--line:#e6e1d6;--acc:#c8102e;--gold:#f2b705;--ok:#1f9d55;--okbg:#e4f6ec;--bad:#c8102e;--badbg:#fdeaea;--blue:#1f4e9c;--soft:#efebe2}
+@media(prefers-color-scheme:dark){:root{--bg:#141413;--card:#1f1e1c;--ink:#f1ede4;--mut:#a39e92;--line:#34322e;--ok:#3ecf80;--okbg:#14301f;--bad:#ff6b6b;--badbg:#3a1a1a;--blue:#7fa8ee;--soft:#2a2825;--acc:#ff4d63}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;height:100dvh;overflow:hidden}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0}
+header{display:flex;align-items:center;justify-content:space-between;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:var(--card);border-bottom:1px solid var(--line)}
+header .logo{font-weight:800;letter-spacing:.2px;display:flex;align-items:center;gap:8px}
+header .flag{width:22px;height:16px;border-radius:3px;background:linear-gradient(#111 0 33%,#c8102e 33% 66%,#f2b705 66%)}
+#stats{display:flex;gap:12px;font-weight:700;font-size:14px}
+main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.wrap{max-width:720px;margin:0 auto;padding:16px 16px 28px}
+nav{display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;padding:8px 4px 7px;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:11px;color:var(--mut);font-weight:600}
+nav button span{font-size:20px;line-height:1.1}
+nav button.on{color:var(--acc)}
+h2{margin:6px 0 4px;font-size:22px}h3{margin:18px 0 8px;font-size:15px;color:var(--mut);text-transform:uppercase;letter-spacing:.6px}
+p{margin:6px 0}small{color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:10px 0}
+.hero{background:linear-gradient(135deg,#1c1b19,#3a1d22);color:#fff;border-radius:18px;padding:18px;margin-bottom:6px}
+.hero h2{margin:0 0 4px}.hero p{color:#e8e2d6;margin:0 0 12px}
+.primary{background:var(--acc);color:#fff;border-radius:12px;padding:13px 18px;font-weight:700;width:100%;text-align:center}
+.primary:disabled{opacity:.45}
+.ghost{border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;font-weight:600;background:var(--card)}
+.gold{background:var(--gold);color:#1c1b19}
+.row{display:flex;gap:10px;margin-top:12px}.row>*{flex:1}
+.lv{margin:20px 0 6px}
+.node{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;margin:8px 0}
+.node .ic{width:46px;height:46px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:22px;flex:none}
+.node.done .ic{background:var(--ok);color:#fff;font-weight:800}
+.node.lock{opacity:.55}
+.node .tx{flex:1;min-width:0}.node b{display:block}.node small{display:block}
+.bar{display:block;height:6px;background:var(--soft);border-radius:4px;margin-top:6px;overflow:hidden}
+.bar u,.prog u{display:block;height:100%;background:var(--gold);border-radius:4px;transition:width .3s}
+.step{display:flex;gap:12px;align-items:center;width:100%;text-align:left}
+.step .ic{font-size:26px;width:44px;text-align:center}
+.step .tx{flex:1}.step b{display:block}.chk{color:var(--ok);font-weight:800}
+.back{font-weight:700;color:var(--blue);padding:4px 0 8px;display:inline-block}
+.ex{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.ex:last-child{border:0}.ex b{font-weight:700}.ex small{display:block}
+table{border-collapse:collapse;width:100%;margin:8px 0}td,th{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left}th{background:var(--soft)}
+.tip{background:var(--soft);border-left:4px solid var(--gold);padding:10px 12px;border-radius:8px;margin:10px 0}
+.spk{font-size:16px;padding:2px 6px;border-radius:8px;background:var(--soft)}
+.vl{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px}
+.vl div{padding:7px 0;border-bottom:1px solid var(--line)}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.prog{flex:1;height:10px;background:var(--soft);border-radius:6px;overflow:hidden}
+.cnt{font-size:13px;color:var(--mut);font-weight:700}
+.top .back{padding:0}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}
+.qt{font-size:20px;font-weight:700;margin-bottom:14px}
+.opt{display:block;width:100%;text-align:left;padding:14px;border:1.5px solid var(--line);border-radius:12px;margin:8px 0;background:var(--card);font-weight:600}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.bad{border-color:var(--bad);background:var(--badbg)}
+input[type=text],textarea,select{font:inherit;width:100%;padding:12px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}
+input[type=text]{font-size:18px}
+.chars{display:flex;gap:8px;margin:8px 0}.chars button{flex:1;padding:9px;border:1.5px solid var(--line);border-radius:10px;font-weight:700;background:var(--card)}
+.chip{display:inline-block;padding:9px 13px;border:1.5px solid var(--line);border-radius:12px;margin:4px 4px 4px 0;font-weight:600;background:var(--card)}
+.slot{min-height:56px;border-bottom:2px solid var(--line);padding:6px 0;margin-bottom:10px}
+.chip.used{opacity:.25;pointer-events:none}
+.fb{margin-top:14px;padding:12px;border-radius:12px}
+.fb.ok{background:var(--okbg)}.fb.bad{background:var(--badbg)}
+.expl{white-space:pre-wrap;margin-top:8px}
+.res{text-align:center}.big{font-size:64px;font-weight:800;color:var(--acc)}
+.wr{text-align:left;padding:8px 0;border-bottom:1px solid var(--line)}
+.flash{min-height:220px;display:grid;place-items:center;text-align:center;font-size:30px;font-weight:800;padding:20px;border-radius:20px;background:var(--card);border:1px solid var(--line);width:100%}
+.flash small{display:block;font-size:14px;font-weight:500;margin-top:8px}
+main{position:relative}
+.chat{display:flex;flex-direction:column;position:absolute;inset:0}
+.opts{padding:10px 12px calc(10px);border-top:1px solid var(--line);background:var(--card);max-height:55%;overflow-y:auto}
+.b small{display:block;opacity:.75;margin-top:2px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--card)}
+.chips .chip{white-space:nowrap;margin:0;padding:7px 11px;font-size:14px}.chips .chip.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.msgs{flex:1;overflow-y:auto;padding:12px}
+.b{max-width:88%;padding:10px 13px;border-radius:16px;margin:6px 0;white-space:pre-wrap;word-wrap:break-word}
+.b.a{background:var(--card);border:1px solid var(--line);border-top-left-radius:4px}
+.b.u{background:var(--acc);color:#fff;margin-left:auto;border-top-right-radius:4px}
+.b .spk{margin-top:4px;display:inline-block}
+.comp{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);background:var(--card);align-items:flex-end}
+.comp textarea{resize:none;flex:1}
+.comp button{width:46px;height:46px;border-radius:50%;background:var(--soft);font-size:20px;flex:none}
+.comp .send{background:var(--acc);color:#fff}.comp .rec{background:var(--gold)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stats .card{margin:0;text-align:center}.stats b{font-size:26px;display:block}
+.seg{display:flex;gap:6px;flex-wrap:wrap}.seg button{padding:9px 14px;border:1.5px solid var(--line);border-radius:10px;font-weight:600;background:var(--card)}
+.seg button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+#toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;z-index:9;display:none;max-width:90%;text-align:center}
+.mut{color:var(--mut)}.okt{color:var(--ok);font-weight:700}
+label.sw{display:flex;justify-content:space-between;align-items:center;gap:10px}
+</style>
+</head>
+<body>
+<header><div class="logo"><span class="flag"></span>Deutsch Lehrer</div><div id="stats"></div></header>
+<main id="main"></main>
+<nav id="nav">
+ <button data-a="tab" data-t="learn"><span>🗺️</span>Path</button>
+ <button data-a="tab" data-t="talk"><span>💬</span>Talk</button>
+ <button data-a="tab" data-t="practice"><span>🎯</span>Practice</button>
+ <button data-a="tab" data-t="me"><span>👤</span>Me</button>
+</nav>
+<div id="toast"></div>
+<script>
+/* ============ CONTENT ============ */
+const mc=(q,o,a,e)=>({t:'mc',q,o,a,e:e||''});
+const fi=(q,a,e)=>({t:'fill',q,a:[].concat(a),e:e||''});
+const od=(q,a,e)=>({t:'order',q,a,w:a.replace(/[.?!]$/,'').split(' '),e:e||''});
+
+const U=[
+{id:'u1',lv:'A1',ic:'👋',t:'Hallo! Greetings',s:'Say hello and introduce yourself',
+notes:[
+['h','Greeting people'],
+['ex',[['Hallo! / Guten Tag!','Hello! / Good day!'],['Guten Morgen / Guten Abend','Good morning / good evening'],['Wie geht’s?','How are you?'],['Mir geht’s gut, danke.','I’m fine, thanks.'],['Tschüss! / Auf Wiedersehen!','Bye! / Goodbye (formal)']]],
+['h','Introducing yourself'],
+['ex',[['Ich heiße Anna.','My name is Anna.'],['Ich komme aus Frankreich.','I come from France.'],['Ich wohne in Lyon.','I live in Lyon.'],['Wie heißt du? / Wie heißen Sie?','What’s your name? (informal / formal)'],['Woher kommst du?','Where are you from?']]],
+['h','The verb “sein” (to be)'],
+['tbl',['','sein'],[['ich','bin'],['du','bist'],['er / sie / es','ist'],['wir','sind'],['ihr','seid'],['sie / Sie','sind']]],
+['tip','du = friends, family, kids. Sie (capital S) = polite “you” for strangers and work.']],
+v:[['Hallo','Hello'],['Guten Morgen','Good morning'],['Guten Tag','Good day'],['Guten Abend','Good evening'],['Tschüss','Bye'],['Auf Wiedersehen','Goodbye (formal)'],['Danke','Thank you'],['Bitte','Please / You’re welcome'],['Ja','Yes'],['Nein','No'],['Entschuldigung','Excuse me / Sorry'],['Wie geht’s?','How are you?']],
+x:[mc('How do you say “Good morning”?',['Guten Morgen','Guten Abend','Gute Nacht','Tschüss'],0,'Morgen = morning, Abend = evening.'),
+fi('Ich ___ Anna. (to be called)','heiße','heißen → ich heiße, du heißt.'),
+fi('Ich ___ aus Frankreich. (to come)','komme','kommen → ich komme.'),
+mc('Polite “you”: Wie heißen ___?',['du','Sie','ihr','wir'],1,'Sie (capital S) is the formal “you”.'),
+fi('Ich ___ müde. (to be)','bin','sein → ich bin, du bist, er ist.'),
+od('I live in Lyon.','Ich wohne in Lyon.','The verb comes in 2nd position.'),
+fi('Woher ___ du? (to come)','kommst','With du the verb ends in -st.'),
+mc('Du ___ nett. (sein)',['bin','bist','ist','sind'],1,'du bist.'),
+mc('Which means “Thank you”?',['Bitte','Danke','Tschüss','Hallo'],1,'Danke = thanks. Bitte = please / you’re welcome.')]},
+
+{id:'u2',lv:'A1',ic:'🔢',t:'Numbers & age',s:'Count, say your age, phone numbers',
+notes:[
+['h','Numbers 0–12 and 20'],
+['p','null · eins · zwei · drei · vier · fünf · sechs · sieben · acht · neun · zehn · elf · zwölf · zwanzig'],
+['h','Building numbers'],
+['ex',[['13–19: unit + zehn','dreizehn, vierzehn, fünfzehn, achtzehn'],['Irregular: sechzehn, siebzehn','sechs → sech-, sieben → sieb-'],['Tens: -zig','zwanzig, dreißig, vierzig, fünfzig'],['21+: unit first!','einundzwanzig (one-and-twenty)']]],
+['h','Age'],
+['ex',[['Wie alt bist du?','How old are you?'],['Ich bin achtzehn Jahre alt.','I am eighteen years old.'],['Meine Tochter ist fünfzehn.','My daughter is fifteen.']]],
+['tip','Phone numbers are read digit by digit: 0-1-7-2 → null eins sieben zwei.']],
+v:[['null','0'],['eins','1'],['zwei','2'],['drei','3'],['vier','4'],['fünf','5'],['sechs','6'],['sieben','7'],['acht','8'],['neun','9'],['zehn','10'],['elf','11'],['zwölf','12'],['zwanzig','20']],
+x:[mc('Which number is “sieben”?',['6','7','8','9'],1),
+mc('What is 15 in German?',['fünfzehn','fünfzig','fünf','fünfte'],0,'fünf + zehn → fünfzehn. fünfzig is 50.'),
+fi('Wie ___ bist du? (old)','alt','Wie alt bist du? = How old are you?'),
+fi('Ich bin achtzehn Jahre ___.','alt'),
+fi('drei + vier = ___','sieben'),
+mc('How do you say 21?',['zwanzigeins','einundzwanzig','zwanzig und eins','eins und zwanzig'],1,'Units come first: ein-und-zwanzig.'),
+od('I am twenty years old.','Ich bin zwanzig Jahre alt.'),
+mc('What is 16?',['sechzig','sechzehn','sieben','sechs'],1,'sechzehn drops the “s” of sechs; sechzig = 60.'),
+mc('“Wie alt bist du?” means…',['Where are you from?','How old are you?','What is your name?','How are you?'],1)]},
+
+{id:'u3',lv:'A1',ic:'🏠',t:'Nouns & articles',s:'der, die, das and plurals',
+notes:[
+['h','Three genders'],
+['tbl',['','the','a'],[['masculine','der Hund','ein Hund'],['feminine','die Katze','eine Katze'],['neuter','das Kind','ein Kind'],['plural','die Kinder','– (no article)']]],
+['tip','Always learn the article with the noun: “der Tisch”, not just “Tisch”.'],
+['h','Handy hints'],
+['ex',[['-ung, -heit, -keit, -schaft → die','die Zeitung, die Freiheit'],['-chen, -lein → das','das Mädchen'],['Many nouns in -e → die','die Lampe, die Katze']]],
+['h','Plurals (no single rule!)'],
+['ex',[['-e','der Hund → die Hunde'],['-n / -en','die Katze → die Katzen'],['-er (+ umlaut)','das Buch → die Bücher'],['umlaut only','der Apfel → die Äpfel']]],
+['p','All nouns are written with a capital letter in German.']],
+v:[['der Mann','man'],['die Frau','woman'],['das Kind','child'],['der Tisch','table'],['die Lampe','lamp'],['das Buch','book'],['der Hund','dog'],['die Katze','cat'],['das Haus','house'],['die Schule','school'],['der Apfel','apple'],['die Stadt','city / town']],
+x:[mc('___ Hund (the dog)',['der','die','das'],0),
+mc('___ Katze (the cat)',['der','die','das'],1,'Most nouns ending in -e are feminine.'),
+mc('___ Buch (the book)',['der','die','das'],2),
+fi('Das ist ___ Haus. (a)','ein','Neuter → ein Haus.'),
+fi('Das ist ___ Lampe. (a)','eine','Feminine → eine Lampe.'),
+mc('Plural of “das Kind”',['die Kinds','die Kinder','die Kinden','die Kindern'],1),
+mc('Plural of “die Katze”',['die Katzen','die Katzer','die Katze','die Katzes'],0),
+mc('Nouns ending in -ung are usually…',['masculine','feminine','neuter'],1,'die Zeitung, die Wohnung.'),
+od('That is a dog.','Das ist ein Hund.'),
+mc('Plural of “das Buch”',['die Bücher','die Buchen','die Buchs','die Büche'],0,'Many neuter nouns: -er + umlaut.')]},
+
+{id:'u4',lv:'A1',ic:'☕',t:'Food & drink',s:'Order in a café',
+notes:[
+['h','Ordering'],
+['ex',[['Ich möchte einen Kaffee, bitte.','I would like a coffee, please.'],['Die Rechnung, bitte.','The bill, please.'],['Das ist lecker!','That’s delicious!'],['Ich esse Brot und trinke Wasser.','I eat bread and drink water.']]],
+['h','Three useful verbs'],
+['tbl',['','essen','trinken','möchten'],[['ich','esse','trinke','möchte'],['du','isst','trinkst','möchtest'],['er/sie/es','isst','trinkt','möchte'],['wir','essen','trinken','möchten'],['ihr','esst','trinkt','möchtet'],['sie/Sie','essen','trinken','möchten']]],
+['h','Accusative (the thing you eat/drink/order)'],
+['p','Only masculine changes: der Tee → <b>einen</b> Tee, <b>den</b> Tee. Feminine and neuter stay the same: eine Milch, ein Brot.']],
+v:[['das Wasser','water'],['der Kaffee','coffee'],['der Tee','tea'],['die Milch','milk'],['das Brot','bread'],['der Käse','cheese'],['der Wein','wine'],['das Frühstück','breakfast'],['das Abendessen','dinner'],['essen','to eat'],['trinken','to drink'],['ich möchte','I would like'],['lecker','delicious'],['die Rechnung','the bill']],
+x:[fi('Ich ___ einen Kaffee. (would like)','möchte','möchte = would like.'),
+fi('Er ___ Brot. (essen)','isst','essen is irregular: du isst, er isst.'),
+fi('Du ___ Milch. (trinken)','trinkst'),
+mc('Ich möchte ___ Tee. (der Tee)',['ein','eine','einen','einem'],2,'Masculine accusative: ein → einen.'),
+mc('“The bill, please” =',['Die Rechnung, bitte','Das Wasser, bitte','Der Kaffee, danke','Ich trinke'],0),
+od('I would like a coffee, please.','Ich möchte bitte einen Kaffee.'),
+mc('“lecker” means…',['delicious','expensive','hot','cold'],0),
+fi('Wir ___ Käse. (essen)','essen','wir → same as the infinitive.')]},
+
+{id:'u5',lv:'A1',ic:'🧩',t:'Verbs & word order',s:'Present tense, questions, negation',
+notes:[
+['h','Regular verbs: stem + ending'],
+['tbl',['','machen','arbeiten','haben'],[['ich','mache','arbeite','habe'],['du','machst','arbeitest','hast'],['er/sie/es','macht','arbeitet','hat'],['wir','machen','arbeiten','haben'],['ihr','macht','arbeitet','habt'],['sie/Sie','machen','arbeiten','haben']]],
+['tip','Stems ending in -t/-d add an extra “e”: du arbeitest, er arbeitet.'],
+['h','Word order'],
+['ex',[['Ich lerne heute Deutsch.','Verb in 2nd position'],['Heute lerne ich Deutsch.','Time first → verb still 2nd, subject after'],['Wohnst du in Paris?','Yes/no question: verb first'],['Wo wohnst du?','W-question: W-word, then verb']]],
+['h','Negation'],
+['ex',[['Ich komme nicht aus Spanien.','nicht = not (verbs, adjectives)'],['Ich habe keinen Hund.','kein = no/not a (nouns)']]]],
+v:[['machen','to do / make'],['wohnen','to live'],['arbeiten','to work'],['lernen','to learn'],['spielen','to play'],['kommen','to come'],['gehen','to go'],['haben','to have'],['heute','today'],['morgen','tomorrow'],['immer','always'],['oft','often'],['nicht','not'],['auch','also']],
+x:[fi('Wir ___ in Lyon. (wohnen)','wohnen'),
+fi('Du ___ viel. (arbeiten)','arbeitest','Stem ends in -t → extra “e”.'),
+fi('Er ___ einen Hund. (haben)','hat','haben: er hat.'),
+mc('Heute ___ ich Deutsch.',['lerne','lernst','lernen','lernt'],0,'Verb stays in 2nd position, subject follows.'),
+od('Today I am learning German.','Heute lerne ich Deutsch.'),
+od('Do you live in Paris?','Wohnst du in Paris?','Yes/no questions start with the verb.'),
+mc('Ich komme ___ aus Deutschland.',['kein','nicht','keine','nichts'],1,'nicht negates the verb/phrase.'),
+fi('Ihr ___ gut. (spielen)','spielt','ihr → -t.'),
+mc('Ich habe ___ Hund. (no)',['nicht','kein','keinen','keine'],2,'Masculine accusative: keinen.')]},
+
+{id:'u6',lv:'A1',ic:'👨‍👩‍👧',t:'Family & time',s:'Talk about family, tell the time',
+notes:[
+['h','Possessives'],
+['tbl',['','der / das','die / plural'],[['my','mein Vater, mein Kind','meine Mutter, meine Eltern'],['your (du)','dein Vater','deine Mutter'],['his','sein Bruder','seine Schwester']]],
+['h','Telling the time'],
+['ex',[['Wie spät ist es?','What time is it?'],['Es ist drei Uhr.','It’s 3 o’clock.'],['Es ist halb vier.','3:30 (half TO four!)'],['Viertel nach drei / Viertel vor vier','3:15 / 3:45']]],
+['h','Days'],
+['p','Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag → “am Montag” = on Monday.']],
+v:[['die Familie','family'],['die Mutter','mother'],['der Vater','father'],['der Sohn','son'],['die Tochter','daughter'],['der Bruder','brother'],['die Schwester','sister'],['die Eltern','parents'],['die Uhr','clock / o’clock'],['das Wochenende','weekend'],['die Stunde','hour'],['früh','early'],['spät','late']],
+x:[fi('Das ist ___ Mutter. (my)','meine','Feminine → meine.'),
+fi('Das ist ___ Vater. (my)','mein'),
+mc('“halb vier” is…',['3:30','4:30','3:45','4:15'],0,'halb vier = half way to four = 3:30.'),
+fi('Es ist drei ___. (o’clock)','Uhr'),
+mc('“on Monday” =',['im Montag','am Montag','in Montag','um Montag'],1),
+od('I have two children.','Ich habe zwei Kinder.'),
+mc('“die Eltern” means…',['siblings','parents','grandparents','children'],1),
+fi('Das sind ___ Eltern. (my)','meine','Plural → meine.'),
+mc('Viertel vor vier =',['3:15','3:45','4:15','4:45'],1)]},
+
+{id:'u7',lv:'A2',ic:'💪',t:'Modal & separable verbs',s:'Can, must, want · stand up, call',
+notes:[
+['h','Modal verbs: conjugated verb + infinitive at the END'],
+['tbl',['','können','müssen','wollen'],[['ich','kann','muss','will'],['du','kannst','musst','willst'],['er/sie/es','kann','muss','will'],['wir','können','müssen','wollen'],['ihr','könnt','müsst','wollt'],['sie/Sie','können','müssen','wollen']]],
+['ex',[['Ich kann Deutsch sprechen.','I can speak German.'],['Heute muss ich arbeiten.','Today I have to work.']]],
+['h','Separable verbs: the prefix jumps to the END'],
+['ex',[['aufstehen → Ich stehe um 7 Uhr auf.','I get up at 7.'],['anrufen → Er ruft mich an.','He calls me.'],['einkaufen → Wir kaufen heute ein.','We shop today.']]]],
+v:[['können','can / to be able to'],['müssen','must / have to'],['wollen','to want'],['dürfen','may / to be allowed'],['sollen','should'],['aufstehen','to get up'],['anrufen','to call'],['einkaufen','to shop'],['mitkommen','to come along'],['anfangen','to begin'],['fernsehen','to watch TV'],['ankommen','to arrive']],
+x:[fi('Ich ___ Deutsch sprechen. (können)','kann','ich kann (no ending).'),
+fi('Du ___ arbeiten. (müssen)','musst'),
+od('I have to work today.','Ich muss heute arbeiten.','Modal verb 2nd, infinitive at the end.'),
+mc('In “Ich will Pizza essen”, “essen” is at the…',['start','end','middle'],1,'The infinitive goes to the end.'),
+fi('Ich stehe um sechs Uhr ___. (aufstehen)','auf'),
+fi('Er ruft mich ___. (anrufen)','an'),
+od('We go shopping today.','Wir kaufen heute ein.'),
+mc('Er ___ Pizza essen. (wollen)',['wille','willt','will','wollt'],2,'er will.'),
+mc('Der Film ___ um 8 Uhr ___. (anfangen)',['fängt … an','fängt … ab','fängt … auf','anfängt'],0,'anfangen is separable: Er fängt an.')]},
+
+{id:'u8',lv:'A2',ic:'⏪',t:'Past tense (Perfekt)',s:'Talk about what happened',
+notes:[
+['h','Perfekt = haben/sein + participle (at the END)'],
+['ex',[['Ich habe Deutsch gelernt.','I learned German.'],['Gestern habe ich Pizza gegessen.','Yesterday I ate pizza.'],['Wir sind nach Paris gefahren.','We went to Paris.']]],
+['h','Participles'],
+['tbl',['Infinitive','Participle'],[['lernen (regular)','gelernt'],['machen','gemacht'],['kaufen','gekauft'],['essen (irregular)','gegessen'],['sehen','gesehen'],['gehen','gegangen'],['fahren','gefahren'],['kommen','gekommen']]],
+['tip','Use sein for movement and change of state (gehen, fahren, kommen, aufstehen). Almost everything else uses haben.']],
+v:[['gestern','yesterday'],['letzte Woche','last week'],['schon','already'],['noch nicht','not yet'],['gemacht','done / made'],['gegangen','gone'],['gegessen','eaten'],['gesehen','seen'],['gekauft','bought'],['gelernt','learned'],['die Reise','trip'],['das Wetter','weather']],
+x:[fi('Gestern habe ich Deutsch ___. (lernen)','gelernt'),
+fi('Ich bin nach Paris ___. (fahren)','gefahren'),
+mc('Wir ___ ins Kino gegangen.',['haben','sind','werden','waren'],1,'gehen → sein.'),
+mc('Sie ___ einen Kaffee getrunken.',['ist','hat','sind','haben'],1,'trinken → haben.'),
+od('Yesterday I ate pizza.','Gestern habe ich Pizza gegessen.'),
+fi('Er hat ein Buch ___. (kaufen)','gekauft'),
+fi('Ich habe einen Film ___. (sehen)','gesehen'),
+mc('Participle of “machen”',['gemachen','gemacht','gemachte','machet'],1),
+od('We went to the cinema.','Wir sind ins Kino gegangen.')]},
+
+{id:'u9',lv:'A2',ic:'🎯',t:'Accusative & dative',s:'Cases and prepositions',
+notes:[
+['h','Articles by case'],
+['tbl',['','der','die','das','die (pl)'],[['Nominative','der','die','das','die'],['Accusative','den','die','das','die'],['Dative','dem','der','dem','den (+n)']]],
+['h','Prepositions'],
+['ex',[['Accusative: für, ohne, durch, gegen, um','Das Buch ist für den Mann.'],['Dative: mit, nach, bei, seit, von, zu, aus','Ich fahre mit dem Zug.']]],
+['h','Verbs with dative'],
+['ex',[['helfen, danken, gefallen, schenken','Ich helfe dem Kind.'],['geben + dative + accusative','Ich gebe der Frau ein Buch.']]]],
+v:[['mit','with (+dat.)'],['ohne','without (+acc.)'],['für','for (+acc.)'],['zu','to (+dat.)'],['bei','at / near (+dat.)'],['nach','after / to (+dat.)'],['von','from / of (+dat.)'],['aus','out of / from (+dat.)'],['der Freund','friend'],['helfen','to help (+dat.)'],['geben','to give'],['schenken','to give (a gift)']],
+x:[fi('Ich kaufe ___ Apfel. (der Apfel)','den','Masculine accusative: den.'),
+fi('Ich gehe mit ___ Freund. (der Freund)','dem','mit + dative: dem.'),
+mc('Das Buch ist für ___ Frau.',['der','die','dem','den'],1,'für + accusative: die Frau.'),
+mc('Ich helfe ___ Kind.',['das','den','dem','der'],2,'helfen takes the dative.'),
+fi('Er wohnt bei ___ Mutter. (his)','seiner','bei + dative; feminine dative → seiner.'),
+mc('Ohne ___ Kaffee gehe ich nicht. (der Kaffee)',['der','den','dem','einen'],1,'ohne + accusative.'),
+mc('Wir fahren mit ___ Zug. (der Zug)',['der','den','dem','das'],2,'mit + dative: dem Zug.'),
+od('I give the woman a book.','Ich gebe der Frau ein Buch.','geben: dative (person) before accusative (thing).')]}
+];
+
+
+/* ============ CONVERSATIONS ============ */
+const N=(de,en)=>({t:'n',de,en});
+const Y=(de,en,...w)=>({t:'y',o:[{de,en,ok:1},...w.map(x=>({de:x[0],en:x[1]||'',ok:0,f:x[2]||''}))]});
+const DLG=[
+{id:'d-cafe',lv:'A1',ic:'☕',t:'In the café',steps:[
+N('Guten Tag! Was möchten Sie trinken?','Good day! What would you like to drink?'),
+Y('Guten Tag! Ich möchte einen Kaffee, bitte.','Good day! I would like a coffee, please.',['Ich bin ein Kaffee.','I am a coffee.','“Ich bin” = I am. To order, use “Ich möchte”.'],['Kaffee ich möchte bitte.','','The verb must be in 2nd position: Ich möchte …']),
+N('Gerne. Möchten Sie auch etwas essen?','Gladly. Would you like something to eat too?'),
+Y('Ja, ich möchte ein Brot mit Käse.','Yes, I would like bread with cheese.',['Ja, ich trinke ein Brot.','','Bread is eaten (essen), not drunk (trinken).'],['Ja, ich möchte ein Brot mit Kaffeen.','','“mit Käse” (cheese) fits bread; the other option makes no sense.']),
+N('Sehr gut. Das macht acht Euro.','Very good. That makes eight euros.'),
+Y('Hier, bitte. Danke schön!','Here you go. Thank you very much!',['Ich möchte einen Kaffee.','','You already ordered. Now you pay and say thanks.'],['Wie alt bist du?','','Not a fitting reply to the price.']),
+N('Bitte schön! Auf Wiedersehen!','You’re welcome! Goodbye!'),
+Y('Auf Wiedersehen!','Goodbye!',['Guten Morgen!','','“Guten Morgen” is a greeting; here we say goodbye.'])]},
+{id:'d-meet',lv:'A1',ic:'👋',t:'Meeting someone new',steps:[
+N('Hallo! Ich heiße Lena. Und du?','Hi! My name is Lena. And you?'),
+Y('Hallo Lena! Ich heiße Max.','Hi Lena! My name is Max.',['Hallo! Ich bist Max.','','ich → bin / heiße. “Ich bist” is wrong.'],['Hallo! Mein Name ich Max.','','Mein Name ist Max / Ich heiße Max.']),
+N('Woher kommst du?','Where are you from?'),
+Y('Ich komme aus Frankreich.','I come from France.',['Ich komme in Frankreich.','','Origin = aus (out of). in = location.'],['Ich kommst aus Frankreich.','','ich → komme (not kommst).']),
+N('Und wo wohnst du?','And where do you live?'),
+Y('Ich wohne in Lyon.','I live in Lyon.',['Ich wohne aus Lyon.','','Living in a place = in.']),
+N('Wie alt bist du?','How old are you?'),
+Y('Ich bin zwanzig Jahre alt.','I am twenty years old.',['Ich habe zwanzig Jahre.','','Careful (Romance languages!): in German you “are” old: Ich bin … Jahre alt.']),
+N('Schön, dich kennenzulernen!','Nice to meet you!'),
+Y('Freut mich auch!','Nice to meet you too!',['Bitte schön!','','That means “you’re welcome”.'])]},
+{id:'d-dir',lv:'A1',ic:'🧭',t:'Asking for directions',steps:[
+N('Hallo! Kann ich Ihnen helfen?','Hello! Can I help you?'),
+Y('Entschuldigung, wo ist der Bahnhof?','Excuse me, where is the station?',['Entschuldigung, wo bist der Bahnhof?','','With a thing (der Bahnhof) use “ist”.'],['Wo ist der Bahnhof, tschüss?','','Start politely; no goodbye yet.']),
+N('Gehen Sie geradeaus und dann links.','Go straight ahead and then left.'),
+Y('Ist das weit?','Is it far?',['Bin ich weit?','','That asks “Am I far?”. Ask about the distance: Ist das weit?']),
+N('Nein, nur fünf Minuten zu Fuß.','No, only five minutes on foot.'),
+Y('Vielen Dank! Auf Wiedersehen!','Thank you very much! Goodbye!',['Bitte schön, gern geschehen!','','That is what the helper says, not you.'])]},
+{id:'d-shop',lv:'A1',ic:'🛍️',t:'Shopping for clothes',steps:[
+N('Guten Tag! Kann ich Ihnen helfen?','Good day! Can I help you?'),
+Y('Ja, ich suche ein T-Shirt.','Yes, I am looking for a T-shirt.',['Ja, ich suchen ein T-Shirt.','','ich → suche (ending -e).']),
+N('Welche Größe haben Sie?','Which size do you have?'),
+Y('Ich brauche Größe M.','I need size M.',['Ich brauchen Größe M.','','ich → brauche (ending -e).']),
+N('Hier, bitte. Das kostet fünfzehn Euro.','Here you go. That costs fifteen euros.'),
+Y('Das ist nicht teuer. Ich nehme es.','That is not expensive. I’ll take it.',['Das ist kein teuer.','','Adjectives are negated with “nicht”; “kein” is for nouns.']),
+N('Möchten Sie bar oder mit Karte bezahlen?','Would you like to pay cash or by card?'),
+Y('Mit Karte, bitte.','By card, please.',['Zu Karte, bitte.','','“mit” = with / by means of; “zu” means “to”.'])]},
+{id:'d-doc',lv:'A2',ic:'🩺',t:'Making an appointment',steps:[
+N('Praxis Doktor Müller, guten Tag.','Doctor Müller’s practice, good day.'),
+Y('Guten Tag, ich möchte einen Termin machen.','Good day, I would like to make an appointment.',['Guten Tag, ich möchte ein Termin machen.','','Masculine accusative: einen Termin.']),
+N('Gerne. Wann haben Sie Zeit?','Gladly. When are you free?'),
+Y('Am Montag um zehn Uhr, bitte.','On Monday at ten o’clock, please.',['Im Montag um zehn Uhr, bitte.','','On Monday = am Montag.']),
+N('Montag um zehn passt. Wie ist Ihr Name?','Monday at ten works. What is your name?'),
+Y('Mein Name ist Anna Schmidt.','My name is Anna Schmidt.',['Ich Name ist Anna Schmidt.','','“my name” = mein Name.']),
+N('Danke. Bis Montag!','Thanks. See you Monday!'),
+Y('Danke, bis Montag! Auf Wiedersehen!','Thanks, see you Monday! Goodbye!',['Danke, bis Montag! Guten Morgen!','','Say goodbye, not good morning.'])]},
+{id:'d-train',lv:'A2',ic:'🚆',t:'Buying a train ticket',steps:[
+N('Guten Tag, wohin möchten Sie fahren?','Good day, where would you like to travel?'),
+Y('Eine Fahrkarte nach Berlin, bitte.','A ticket to Berlin, please.',['Eine Fahrkarte in Berlin, bitte.','','Going to a city: nach Berlin.']),
+N('Einfach oder hin und zurück?','One-way or return?'),
+Y('Hin und zurück, bitte.','Return, please.',['Hin und her, bitte.','','Return trip = hin und zurück.']),
+N('Das kostet neunundachtzig Euro. Der Zug fährt um vierzehn Uhr ab.','That costs 89 euros. The train leaves at 2 pm.'),
+Y('Von welchem Gleis fährt der Zug ab?','From which platform does the train leave?',['Von welcher Gleis fährt der Zug ab?','','Gleis is neuter: von welchem Gleis (dative).']),
+N('Gleis fünf.','Platform five.'),
+Y('Vielen Dank!','Thank you very much!',['Gute Nacht!','','Not fitting here.'])]}
+];
+
+/* ============ HELPERS ============ */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm=s=>String(s).toLowerCase().replace(/ß/g,'ss').replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/[.,!?;:"“”’']/g,'').replace(/\s+/g,' ').trim();
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const LANGS={en:'English',fr:'French',pt:'Portuguese',es:'Spanish'};
+const LS='deutsch_lehrer_v1';
+
+let S={xp:0,streak:0,last:'',u:{},known:{},miss:{},lang:'en',lvl:'A1',all:false,ts:0,packs:{},dlg:{},tr:true,ai:false};
+try{Object.assign(S,JSON.parse(localStorage.getItem(LS)||'{}'))}catch(e){}
+let cloud=null,saveT=null;
+function save(){S.ts=Date.now();try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}
+ clearTimeout(saveT);saveT=setTimeout(()=>{if(cloud){try{Promise.resolve(cloud.set(JSON.parse(JSON.stringify(S)))).catch(()=>{})}catch(e){}}},1500)}
+const today=()=>new Date().toISOString().slice(0,10);
+function touch(){const t=today();if(S.last===t)return;const y=new Date(Date.now()-864e5).toISOString().slice(0,10);S.streak=S.last===y?S.streak+1:1;S.last=t}
+const su=id=>(S.u[id]=S.u[id]||{});
+function ustat(u){const s=S.u[u.id]||{};const n=(s.lesson?1:0)+(s.cards?1:0)+(s.practice?1:0)+((s.test||0)>=70?1:0);return{n,pct:n*25,done:(s.test||0)>=70}}
+const isOpen=i=>S.all||i===0||ustat(U[i-1]).done;
+const packUnits=()=>Object.values(S.packs||{}).flatMap(p=>(p.units||[]).map(u=>({...u,pack:p.id,pn:p.name})));
+const packDlgs=()=>Object.values(S.packs||{}).flatMap(p=>(p.dialogues||[]).map(d=>({...d,pn:p.name})));
+const ALLU=()=>[...U,...packUnits()];
+const ALLD=()=>[...DLG,...packDlgs()];
+const unitById=id=>ALLU().find(u=>u.id===id);
+
+/* optional sync of progress across devices (no AI, no tokens) */
+const tryUse=n=>{try{return window.claude&&claude.use?claude.use(n).catch(()=>null):Promise.resolve(null)}catch(e){return Promise.resolve(null)}};
+(async()=>{try{const [db,user]=await Promise.all([tryUse('db'),tryUse('user')]);if(!db||!user)return;const id=await user.id();const d=db.collection('data/users/'+id).doc('progress');const snap=await d.get();
+ const ex=typeof snap.exists==='function'?snap.exists():snap.exists;const data=ex?(typeof snap.data==='function'?snap.data():snap.data):null;cloud=d;
+ if(data&&(data.ts||0)>S.ts){Object.assign(S,data);try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}if(UI.screen==='home'&&UI.tab!=='talk')render()}else{save()}}catch(e){}})();
+
+/* OPTIONAL AI teacher: only used if the user switches it on (Me tab). Everything else is offline. */
+let SAMPLE=null;
+(async()=>{SAMPLE=await tryUse('sample');if(UI.screen==='home'&&UI.tab!=='talk')render()})();
+
+/* voice: the browser's own speech engine (free, offline) */
+let VOICE=null;
+function pickVoice(){try{VOICE=speechSynthesis.getVoices().find(x=>/^de(-|_|$)/i.test(x.lang))||null}catch(e){}}
+try{if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice}}catch(e){}
+function say(t){t=String(t).replace(/\([^)]*\)/g,'').trim();if(!t)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='de-DE';if(VOICE)u.voice=VOICE;u.rate=.9;speechSynthesis.speak(u)}catch(e){}}
+const canSay=()=>{try{return 'speechSynthesis' in window}catch(e){return false}};
+const spk=t=>canSay()?` <button class="spk" data-a="say" data-t="${esc(t)}" aria-label="Listen">🔊</button>`:'';
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',2600)}
+
+/* ============ NAV STATE ============ */
+const UI={tab:'learn',screen:'home',unit:null,sess:null,deck:null,chat:null,dlg:null,stack:[],dict:false};
+function go(screen,o){o=o||{};if(!o.replace)UI.stack.push({screen:UI.screen,unit:UI.unit,tab:UI.tab});UI.screen=screen;if(o.unit)UI.unit=o.unit;render();$('#main').scrollTop=0}
+function back(){const p=UI.stack.pop();if(p){UI.screen=p.screen;UI.unit=p.unit;UI.tab=p.tab}else{UI.screen='home'}render()}
+
+/* ============ QUESTIONS ============ */
+function vocabQ(w,pool){const dir=Math.random()<.5;const others=shuffle(pool.filter(x=>x[0]!==w[0])).slice(0,3);const opts=shuffle([w,...others]);
+ return dir?{t:'mc',q:`What does “${w[0]}” mean?`,say:w[0],o:opts.map(x=>x[1]),a:opts.indexOf(w),w:w[0],e:`${w[0]} = ${w[1]}`}
+ :{t:'mc',q:`How do you say “${w[1]}” in German?`,o:opts.map(x=>x[0]),a:opts.indexOf(w),w:w[0],e:`${w[1]} = ${w[0]}`}}
+const unlocked=()=>[...U.filter((u,i)=>isOpen(i)),...packUnits()];
+function makeMix(us,nV,nE,pref){const pool=us.flatMap(u=>u.v);let ws=shuffle(pool);
+ if(pref){const m=pool.filter(w=>S.miss[w[0]]);ws=[...shuffle(m),...ws.filter(w=>!S.miss[w[0]])]}
+ const vq=ws.slice(0,nV).map(w=>vocabQ(w,pool));const eq=shuffle(us.flatMap(u=>u.x)).slice(0,nE).map(x=>({...x}));return shuffle([...vq,...eq])}
+function weakQs(){const pool=ALLU().flatMap(u=>u.v);return shuffle(pool.filter(w=>S.miss[w[0]])).slice(0,10).map(w=>vocabQ(w,pool))}
+
+function startSession(o){UI.sess={...o,qs:o.make(),i:0,score:0,ans:null,wrong:[],cur:null,expl:''};go('session',{replace:UI.screen==='result'})}
+
+/* ============ VIEWS ============ */
+function vLearn(){
+ const next=U.findIndex((u,i)=>isOpen(i)&&!ustat(u).done);const nu=next>=0?U[next]:null;
+ let h=`<div class="wrap"><div class="hero"><h2>Guten Tag! 👋</h2><p>${nu?`Next up: <b>${esc(nu.t)}</b>`:'You finished the whole path — great work! Use Practice and Tutor to keep going.'}</p>${nu?`<button class="primary gold" data-a="unit" data-id="${nu.id}">Continue</button>`:''}</div>`;
+ let lv='';
+ U.forEach((u,i)=>{if(u.lv!==lv){lv=u.lv;h+=`<h3 class="lv">${lv==='A1'?'A1 · Beginner':'A2 · Elementary'}</h3>`}
+  const o=isOpen(i),st=ustat(u);
+  h+=`<button class="node ${o?'':'lock'} ${st.done?'done':''}" data-a="unit" data-id="${u.id}"><span class="ic">${st.done?'✓':o?u.ic:'🔒'}</span><span class="tx"><b>${i+1}. ${esc(u.t)}</b><small>${esc(u.s)}</small><i class="bar"><u style="width:${st.pct}%"></u></i></span></button>`});
+ Object.values(S.packs||{}).forEach(p=>{if(!(p.units||[]).length)return;h+=`<h3 class="lv">📦 ${esc(p.name)}</h3>`;p.units.forEach(u=>{const pu={...u},st=ustat(pu);h+=`<button class="node ${st.done?'done':''}" data-a="unit" data-id="${esc(u.id)}"><span class="ic">${st.done?'✓':esc(u.ic)}</span><span class="tx"><b>${esc(u.t)}</b><small>${esc(u.lv)} · ${esc(u.s)}</small><i class="bar"><u style="width:${st.pct}%"></u></i></span></button>`})});
+ return h+'</div>'}
+
+function vUnit(){const u=unitById(UI.unit),s=S.u[u.id]||{};
+ const step=(a,ic,t,d,done)=>`<button class="card step" data-a="${a}"><span class="ic">${ic}</span><span class="tx"><b>${t}</b><small>${d}</small></span>${done?'<span class="chk">✓</span>':''}</button>`;
+ return `<div class="wrap"><button class="back" data-a="back">← Path</button><h2>${u.ic} ${esc(u.t)}</h2><p class="mut">${esc(u.s)}</p>
+ ${step('lesson','📖','1. Lesson','Grammar notes + '+u.v.length+' words',s.lesson)}
+ ${step('cards','🃏','2. Flashcards',u.v.length+' words with audio',s.cards)}
+ ${step('practice','✍️','3. Practice',u.x.length+' exercises, no pressure',s.practice)}
+ ${step('test','🏆','4. Unit test','Pass with 70% to unlock the next unit'+(s.test!=null?` · best ${s.test}%`:''),(s.test||0)>=70)}</div>`}
+
+function vNotes(blocks){return blocks.map(b=>{
+ if(b[0]==='h')return `<h3>${esc(b[1])}</h3>`;
+ if(b[0]==='p')return `<p>${esc(b[1]).replace(/&lt;(\/?)b&gt;/g,'<$1b>')}</p>`;
+ if(b[0]==='tip')return `<div class="tip">💡 ${esc(b[1])}</div>`;
+ if(b[0]==='ex')return `<div class="card">${b[1].map(r=>`<div class="ex"><div><b>${esc(r[0])}</b><small>${esc(r[1])}</small></div>${spk(r[0].split(' → ').pop().split(' / ')[0])}</div>`).join('')}</div>`;
+ if(b[0]==='tbl')return `<div class="card" style="overflow-x:auto"><table><tr>${b[1].map(x=>`<th>${esc(x)}</th>`).join('')}</tr>${b[2].map(r=>`<tr>${r.map((c,i)=>`<td>${i?'<b>':''}${esc(c)}${i?'</b>':''}</td>`).join('')}</tr>`).join('')}</table></div>`;return ''}).join('')}
+function vLesson(){const u=unitById(UI.unit);
+ return `<div class="wrap"><button class="back" data-a="back">← ${esc(u.t)}</button><h2>${u.ic} ${esc(u.t)}</h2>${vNotes(u.notes)}<h3>Vocabulary</h3><div class="card"><div class="vl">${u.v.map(w=>`<div><b>${esc(w[0])}</b>${spk(w[0])}</div><div class="mut">${esc(w[1])}</div>`).join('')}</div></div><button class="primary" data-a="cards">Next: Flashcards →</button></div>`}
+
+function vCards(){const d=UI.deck;
+ if(!d.words.length)return `<div class="wrap res"><div class="big">🎉</div><h2>Deck done!</h2><p class="mut">+${d.xp} XP</p><button class="primary" data-a="back">Done</button></div>`;
+ const w=d.words[0];
+ return `<div class="wrap"><div class="top"><button class="back" data-a="back">✕</button><div class="prog"><u style="width:${Math.round(d.done/d.total*100)}%"></u></div><span class="cnt">${d.done}/${d.total}</span></div>
+ <button class="flash" data-a="flip">${d.flip?`<span>${esc(w[1])}<small>${esc(w[0])}</small></span>`:`<span>${esc(w[0])}<small>tap to reveal</small></span>`}</button>
+ <div class="row">${canSay()?`<button class="ghost" data-a="say" data-t="${esc(w[0])}">🔊 Listen</button>`:''}</div>
+ ${d.flip?`<div class="row"><button class="ghost" data-a="again">↻ Again</button><button class="primary" data-a="got">✓ Got it</button></div>`:''}</div>`}
+function openDeck(words,unit){UI.deck={words:shuffle(words),total:words.length,done:0,flip:false,unit,xp:0};go('cards')}
+
+function vSession(){const s=UI.sess,q=s.qs[s.i];if(!s.cur||s.cur.i!==s.i)s.cur={i:s.i,bank:q.t==='order'?shuffle(q.w.map((x,i)=>({x,i}))):[],sel:[]};
+ const pct=Math.round(s.i/s.qs.length*100),a=s.ans;
+ let h=`<div class="wrap"><div class="top"><button class="back" data-a="back">✕</button><div class="prog"><u style="width:${pct}%"></u></div><span class="cnt">${s.i+1}/${s.qs.length}</span></div><div class="qcard">`;
+ if(q.t==='mc'){h+=`<div class="qt">${esc(q.q)}${q.say?spk(q.say):''}</div>`+q.o.map((o,k)=>{let c='opt';if(a){if(k===q.a)c+=' ok';else if(k===a.pick)c+=' bad'}return `<button class="${c}" data-a="pick" data-k="${k}" ${a?'disabled':''}>${esc(o)}</button>`}).join('')}
+ if(q.t==='fill'){const sentence=esc(q.q).replace('___',a?`<b>${esc(q.a[0])}</b>`:'<b>＿＿＿</b>');
+  h+=`<div class="qt">${sentence}</div><input type="text" id="fi" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="Your answer" ${a?`disabled value="${esc(a.given)}"`:''}>`;
+  if(!a)h+=`<div class="chars">${['ä','ö','ü','ß'].map(c=>`<button data-a="ch" data-c="${c}">${c}</button>`).join('')}</div><button class="primary" data-a="check">Check</button>`}
+ if(q.t==='order'){h+=`<div class="qt">Translate: ${esc(q.q)}</div><div class="slot">${s.cur.sel.map(k=>`<button class="chip" data-a="unpick" data-k="${k}">${esc(q.w[0]&&s.cur.bank.find(b=>b.i===k).x)}</button>`).join('')}</div><div>${s.cur.bank.map(b=>`<button class="chip ${s.cur.sel.includes(b.i)||a?'used':''}" data-a="word" data-k="${b.i}">${esc(b.x)}</button>`).join('')}</div>${a?'':`<button class="primary" style="margin-top:12px" data-a="check" ${s.cur.sel.length?'':'disabled'}>Check</button>`}`}
+ if(a){const ans=q.t==='mc'?q.o[q.a]:q.t==='fill'?q.a[0]:q.a;const last=s.i===s.qs.length-1;
+  h+=`<div class="fb ${a.ok?'ok':'bad'}"><b>${a.ok?'✅ Richtig!':'❌ Not quite'}</b>${a.ok?'':`<div>Correct: <b>${esc(ans)}</b></div>`}${q.e?`<div>${esc(q.e)}</div>`:''}${q.t!=='mc'?`<div>${spk(q.t==='fill'?q.q.replace('___',q.a[0]).replace(/\s*\([^)]*\)/,''):q.a)}</div>`:''}<div id="expl" class="expl">${esc(s.expl)}</div>
+  <div class="row"><button class="primary" data-a="next">${last?'Finish':'Continue'}</button></div></div>`}
+ return h+'</div></div>'}
+
+function vResult(){const s=UI.sess,r=s.res;const msg=r.pct>=90?'Ausgezeichnet! 🌟':r.pct>=70?'Gut gemacht! 👏':'Weiter üben! 💪';
+ return `<div class="wrap res"><div class="big">${r.pct}%</div><h2>${msg}</h2><p class="mut">${s.score}/${s.qs.length} correct · +${r.xp} XP</p>
+ ${s.pass?(r.pct>=s.pass?'<p class="okt">Unit passed! Next unit unlocked 🎉</p>':`<p>You need ${s.pass}% to pass. Review the lesson and try again.</p>`):''}
+ ${s.wrong.length?`<h3>To review</h3><div class="card">${s.wrong.map(q=>`<div class="wr"><b>${esc(q.q)}</b><br><small>${esc(q.t==='mc'?q.o[q.a]:q.t==='fill'?q.q.replace('___',q.a[0]):q.a)}</small></div>`).join('')}</div>`:''}
+ <div class="row"><button class="ghost" data-a="retry">Try again</button><button class="primary" data-a="back">Done</button></div></div>`}
+
+function vPractice(){const weak=Object.keys(S.miss).length;
+ return `<div class="wrap"><h2>Practice 🎯</h2>
+ <button class="card step" data-a="daily"><span class="ic">⚡</span><span class="tx"><b>Daily quiz</b><small>10 mixed questions from your unlocked units</small></span></button>
+ <button class="card step" data-a="weak" ${weak?'':'style="opacity:.5"'}><span class="ic">🔁</span><span class="tx"><b>Weak words quiz</b><small>${weak?weak+' words to review':'Nothing yet — your mistakes will show up here'}</small></span></button>
+ <button class="card step" data-a="weakcards" ${weak?'':'style="opacity:.5"'}><span class="ic">🃏</span><span class="tx"><b>Weak words flashcards</b><small>Listen and flip</small></span></button>
+ <button class="card step" data-a="randcards"><span class="ic">🎲</span><span class="tx"><b>Random flashcards</b><small>20 words from your unlocked units</small></span></button>
+ <p class="mut">New exercises and conversations: Me → Content packs.</p></div>`}
+
+/* ---- Talk: scripted conversations ---- */
+function vTalk(){const D=UI.dlg;
+ if(UI.chat)return vChat();
+ if(!D)return `<div class="wrap"><h2>Talk 💬</h2><p class="mut">Real-life conversations. Pick the right reply, listen to the German, learn from the hints. Works offline.</p>${aiCard()}${ALLD().map(d=>{const n=d.steps.filter(s=>s.t==='y').length;return `<button class="card step" data-a="dlg" data-id="${esc(d.id)}"><span class="ic">${esc(d.ic||'💬')}</span><span class="tx"><b>${esc(d.t)}</b><small>${esc(d.lv||'')} · ${n} replies${d.pn?' · 📦 '+esc(d.pn):''}${S.dlg[d.id]!=null?' · best '+S.dlg[d.id]+'%':''}</small></span>${(S.dlg[d.id]||0)>=70?'<span class="chk">✓</span>':''}</button>`}).join('')}</div>`;
+ const bub=D.hist.map(m=>m.r==='a'?`<div class="b a">${esc(m.de)}${canSay()?`<br><button class="spk" data-a="say" data-t="${esc(m.de)}">🔊</button>`:''}${S.tr!==false?`<small>${esc(m.en)}</small>`:''}</div>`:`<div class="b u">${esc(m.de)}${m.en?`<small>${esc(m.en)}</small>`:''}</div>`).join('');
+ let panel;
+ if(D.done)panel=`<div class="res"><div class="big">${D.res.pct}%</div><p class="mut">+${D.res.xp} XP · ${D.score}/${D.total} replies right first time</p><div class="row"><button class="ghost" data-a="dretry">Again</button><button class="primary" data-a="dback">Done</button></div></div>`;
+ else panel=(D.fb?`<div class="fb bad" style="margin:0 0 8px">${esc(D.fb)}</div>`:'<p class="mut" style="margin:0 0 6px">Your reply:</p>')+D.opts.map(o=>`<button class="opt ${D.bad[o.k]?'bad':''}" data-a="dpick" data-k="${o.k}" ${D.bad[o.k]?'disabled':''}>${esc(o.de)}</button>`).join('');
+ return `<div class="chat"><div class="chips"><button class="chip" data-a="dback">← All</button><button class="chip" data-a="trtoggle">Translations: ${S.tr!==false?'on':'off'}</button><span class="chip" style="border:0">${esc(D.d.ic||'')} ${esc(D.d.t)}</span></div><div class="msgs" id="msgs">${bub}</div><div class="opts">${panel}</div></div>`}
+/* ---- optional AI teacher ---- */
+const LANGS2={en:'English',fr:'French',pt:'Portuguese',es:'Spanish'};
+const SCN=[
+{id:'free',l:'💬 Free chat',p:'Have a relaxed free conversation about everyday topics. Begin by greeting the student and asking one simple question.'},
+{id:'cafe',l:'☕ Café',p:'Roleplay: you are a waiter in a café in Berlin and the student is the customer. Begin by welcoming them.'},
+{id:'work',l:'💼 At work',p:'Roleplay: you are a colleague chatting with the student about work and the weekend.'},
+{id:'trip',l:'✈️ Travel',p:'Roleplay: you are a hotel receptionist in Vienna; the student arrives to check in. Begin by welcoming them.'},
+{id:'fix',l:'✏️ Fix my text',p:''}];
+function aiCard(){
+ if(!SAMPLE)return '';
+ if(!S.ai)return `<div class="card"><b>🤖 AI teacher (optional)</b><p class="mut">Free conversation with corrections. It uses Claude and consumes tokens, so it is off by default.</p><button class="ghost" data-a="aion">Enable in this app</button></div>`;
+ return `<h3>🤖 AI teacher · uses Claude tokens</h3>`+SCN.map(s=>`<button class="card step" data-a="scn" data-id="${s.id}"><span class="tx"><b>${s.l}</b></span></button>`).join('')+`<h3>Scripted conversations (free)</h3>`}
+function vChat(){const c=UI.chat;const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ return `<div class="chat"><div class="chips"><button class="chip" data-a="chatback">← All</button>${SCN.map(s=>`<button class="chip ${s.id===c.scn?'on':''}" data-a="scn" data-id="${s.id}">${s.l}</button>`).join('')}</div><div class="msgs" id="msgs"></div>
+ <div class="comp">${SR?`<button id="micb" data-a="mic" aria-label="Speak">🎤</button>`:''}<textarea id="ci" rows="2" placeholder="${c.scn==='fix'?'Paste your German text…':'Schreib auf Deutsch…'}"></textarea><button class="send" data-a="send" aria-label="Send">➤</button></div></div>`}
+function paintChat(){const el=$('#msgs'),c=UI.chat;if(!el||!c)return;
+ el.innerHTML=c.hist.map(m=>`<div class="b ${m.role==='user'?'u':'a'}">${esc(m.content||'…')}${m.role==='assistant'&&m.content&&canSay()?`<br><button class="spk" data-a="say" data-t="${esc(m.content)}">🔊</button>`:''}</div>`).join('')+(c.err?`<div class="b a mut">⚠️ ${esc(c.err)}</div>`:'');
+ el.scrollTop=el.scrollHeight}
+function instr(){const c=UI.chat,sc=SCN.find(s=>s.id===c.scn),L=LANGS2[S.lang]||'English';
+ if(sc.id==='fix')return `You are Lena, a kind German teacher. Student level: ${S.lvl}. The student's language: ${L}. The student sends German text. Reply in ${L} (keep German examples in German) with exactly this structure:\n✅ Corrected: <corrected German text>\n📝 Mistakes: up to 5 bullets "wrong → right: short reason"\n💡 Tip: one short tip.\nIf there are no mistakes, say so. If the text is not German, ask the student to write in German. Be concise. Plain text, no markdown.`;
+ return `You are Lena, a friendly, patient German teacher. Student level: ${S.lvl}. The student's language for explanations: ${L}. Scenario: ${sc.p}\nRules: reply mainly in simple German suited to ${S.lvl}; at most 3 short sentences; end with one easy question. If the student's last message has German mistakes, begin with a line "✏️ <corrected sentence>" and one short explanation in ${L}, then continue. Add short glosses in ${L} in parentheses for hard words. If the student writes in another language, show how to say it in German. Plain text only, no markdown.`}
+async function ask(){const c=UI.chat;c.err='';const msgs=[{role:'user',content:instr()+'\n\nStart the session now with your first message.'},...c.hist.filter(m=>m.content)];
+ const mine=c.hist.push({role:'assistant',content:''})-1;paintChat();
+ try{const r=await SAMPLE(msgs,{cache:false,onText:({text})=>{if(UI.chat===c){c.hist[mine].content=text;paintChat()}}});c.hist[mine].content=r.text}
+ catch(e){c.hist.splice(mine,1);c.err=e&&e.code==='rate_limited'?'Too many requests — wait a moment.':e&&e.code==='not_granted'?'AI access was declined.':'Could not reach the AI. Try again.'}
+ if(UI.chat===c){c.busy=false;paintChat()}}
+function startChat(id){if(!SAMPLE||!S.ai)return;UI.chat={scn:id,hist:[],busy:true,err:''};
+ if(id==='fix'){UI.chat.hist.push({role:'assistant',content:'Schick mir einen deutschen Text – ich korrigiere ihn.\n(Send me a German text and I will correct it.)'});UI.chat.busy=false;render()}
+ else{render();ask()}}
+function sendChat(){const c=UI.chat,ci=$('#ci');if(!c||c.busy||!ci)return;const t=ci.value.trim();if(!t)return;ci.value='';c.hist.push({role:'user',content:t});c.busy=true;paintChat();ask()}
+let REC=null;
+function toggleMic(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;if(REC){REC.stop();return}
+ try{REC=new SR();REC.lang='de-DE';REC.interimResults=false;REC.onresult=e=>{const ci=$('#ci');if(ci)ci.value+=(ci.value?' ':'')+e.results[0][0].transcript};REC.onend=()=>{REC=null;const b=$('#micb');if(b)b.classList.remove('rec')};REC.onerror=()=>{REC=null};REC.start();const b=$('#micb');if(b)b.classList.add('rec')}catch(e){REC=null}}
+function dlgAdv(){const D=UI.dlg;while(D.i<D.d.steps.length&&D.d.steps[D.i].t==='n'){const s=D.d.steps[D.i++];D.hist.push({r:'a',de:s.de,en:s.en||''})}
+ if(D.i>=D.d.steps.length){const pct=D.total?Math.round(D.score/D.total*100):100,xp=D.score*10;S.xp+=xp;touch();S.dlg[D.d.id]=Math.max(S.dlg[D.d.id]||0,pct);save();D.done=true;D.res={pct,xp};return}
+ D.opts=shuffle(D.d.steps[D.i].o.map((o,k)=>({...o,k})));D.fb='';D.bad={};D.miss=false}
+function startDlg(id){const d=ALLD().find(x=>x.id===id);if(!d)return;UI.dlg={d,i:0,hist:[],score:0,total:d.steps.filter(s=>s.t==='y').length,done:false,opts:[],fb:'',bad:{},miss:false};dlgAdv();render()}
+
+function vMe(){const A=ALLU(),un=A.filter(u=>ustat(u).done).length,kn=Object.keys(S.known).length;
+ const packs=Object.values(S.packs||{});
+ return `<div class="wrap"><h2>Progress 📈</h2><div class="stats"><div class="card"><b>${S.xp}</b><small>XP</small></div><div class="card"><b>${S.streak} 🔥</b><small>day streak</small></div><div class="card"><b>${un}/${A.length}</b><small>units passed</small></div><div class="card"><b>${kn}</b><small>words known</small></div></div>
+ <h3>Settings</h3><div class="card"><label class="sw"><b>Unlock all units</b><button class="ghost" data-a="unlockall">${S.all?'On':'Off'}</button></label>
+ ${SAMPLE?`<p style="margin-top:14px"><label class="sw"><span><b>AI teacher</b><small style="display:block">Uses Claude tokens. Off = fully offline.</small></span><button class="ghost" data-a="aion">${S.ai?'On':'Off'}</button></label></p>
+ <p style="margin-top:12px"><b>AI level</b></p><div class="seg">${['A1','A2','B1'].map(v=>`<button class="${v===S.lvl?'on':''}" data-a="set" data-k="lvl" data-v="${v}">${v}</button>`).join('')}</div>
+ <p style="margin-top:12px"><b>AI explains in</b></p><div class="seg">${Object.entries(LANGS2).map(([k,v])=>`<button class="${k===S.lang?'on':''}" data-a="set" data-k="lang" data-v="${k}">${v}</button>`).join('')}</div>`:''}</div>
+ <h3>Content packs</h3><div class="card"><p>Add new units, exercises and conversations — no AI needed. Paste a pack (JSON) or load a .json file. Importing a pack with the same id updates it and keeps your progress.</p>
+ <textarea id="ptxt" rows="4" placeholder='{"id":"my-pack","name":"My pack","units":[…],"dialogues":[…]}' spellcheck="false"></textarea>
+ <div class="row"><button class="ghost" data-a="pimport">Import</button><label class="ghost" style="text-align:center;display:block">Load file<input type="file" id="pfile" accept=".json,application/json" hidden></label></div>
+ <p id="pmsg" class="mut">${esc(UI.pmsg||'')}</p>
+ <div class="row"><button class="ghost" data-a="ptemplate">Copy template</button><button class="ghost" data-a="pbackup">Copy backup</button></div>
+ ${packs.map(p=>`<div class="ex"><div><b>📦 ${esc(p.name)}</b><small>${(p.units||[]).length} units · ${(p.dialogues||[]).length} conversations</small></div><button class="ghost" style="flex:none;padding:8px 12px" data-a="prem" data-id="${esc(p.id)}">${UI.rp===p.id?'Confirm?':'Remove'}</button></div>`).join('')}</div>
+ <button class="ghost" style="width:100%" data-a="reset">${UI.rs?'Tap again to erase all progress':'Reset progress'}</button></div>`}
+
+/* ============ RENDER ============ */
+function render(){const m=$('#main');let h='';
+ if(UI.screen==='home')h=({learn:vLearn,talk:vTalk,practice:vPractice,me:vMe})[UI.tab]();
+ else h=({unit:vUnit,lesson:vLesson,cards:vCards,session:vSession,result:vResult})[UI.screen]();
+ m.innerHTML=h;
+ document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===UI.tab));
+ $('#stats').innerHTML=`<span>🔥 ${S.streak}</span><span>⭐ ${S.xp}</span>`;
+ if(UI.screen==='home'&&UI.tab==='talk'){if(UI.chat)paintChat();else{const el=$('#msgs');if(el)el.scrollTop=el.scrollHeight}}}
+
+/* ============ ACTIONS ============ */
+function checkAnswer(){const s=UI.sess,q=s.qs[s.i];let ok,given;
+ if(q.t==='fill'){given=($('#fi').value||'').trim();if(!given)return;ok=q.a.some(x=>norm(x)===norm(given))}
+ else{given=s.cur.sel.map(k=>s.cur.bank.find(b=>b.i===k).x).join(' ');ok=norm(given)===norm(q.a)}
+ record(ok,given)}
+function record(ok,given,pick){const s=UI.sess,q=s.qs[s.i];s.ans={ok,given,pick};s.expl='';if(ok)s.score++;else s.wrong.push(q);
+ if(q.w){if(ok){if(S.miss[q.w]){S.miss[q.w]--;if(!S.miss[q.w])delete S.miss[q.w]}S.known[q.w]=1}else S.miss[q.w]=(S.miss[q.w]||0)+1}
+ save();render()}
+function finishSession(){const s=UI.sess;const pct=Math.round(s.score/s.qs.length*100);const xp=s.score*10+(pct===100?10:0);S.xp+=xp;touch();
+ if(s.unit){const u=su(s.unit);if(s.kind==='test')u.test=Math.max(u.test||0,pct);if(s.kind==='practice')u.practice=1}
+ save();s.res={pct,xp};go('result',{replace:true})}
+/* ============ CONTENT PACKS ============ */
+const slug=s=>String(s==null?'':s).toLowerCase().replace(/[^a-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,30);
+const str=(x,n)=>String(x==null?'':x).slice(0,n||300);
+function normEx(x){try{
+ if(x.t==='mc'&&Array.isArray(x.o)&&x.o.length>=2&&Number.isInteger(x.a)&&x.o[x.a]!=null)return mc(str(x.q),x.o.map(o=>str(o,120)),x.a,str(x.e));
+ if(x.t==='fill'&&x.q&&String(x.q).includes('___')&&x.a)return fi(str(x.q),[].concat(x.a).map(a=>str(a,80)),str(x.e));
+ if(x.t==='order'&&x.a&&x.q)return od(str(x.q),str(x.a),str(x.e));}catch(e){}return null}
+function normNotes(n){return (Array.isArray(n)?n:[]).map(b=>{try{
+ if(['h','p','tip'].includes(b[0]))return [b[0],str(b[1],800)];
+ if(b[0]==='ex')return ['ex',b[1].map(r=>[str(r[0],160),str(r[1],160)])];
+ if(b[0]==='tbl')return ['tbl',b[1].map(c=>str(c,60)),b[2].map(r=>r.map(c=>str(c,60)))];}catch(e){}return null}).filter(Boolean)}
+function normUnit(u,pid,i){if(!u||!u.t)return null;
+ const v=(Array.isArray(u.v)?u.v:[]).filter(w=>Array.isArray(w)&&w[0]&&w[1]).map(w=>[str(w[0],80),str(w[1],80)]);
+ const x=(Array.isArray(u.x)?u.x:[]).map(normEx).filter(Boolean);
+ if(!v.length&&!x.length)return null;
+ return {id:pid+':'+(slug(u.id)||'u'+(i+1)),lv:str(u.lv||'A1',3),ic:str(u.ic||'📘',4),t:str(u.t,60),s:str(u.s,100),notes:normNotes(u.notes),v,x}}
+function normDlg(d,pid,i){if(!d||!d.t||!Array.isArray(d.steps))return null;
+ const steps=d.steps.map(s=>{if(s&&s.t==='n'&&s.de)return {t:'n',de:str(s.de),en:str(s.en)};
+  if(s&&s.t==='y'&&Array.isArray(s.o)){const o=s.o.filter(q=>q&&q.de).map(q=>({de:str(q.de),en:str(q.en),ok:q.ok?1:0,f:str(q.f)}));if(o.length>=2&&o.filter(q=>q.ok).length===1)return {t:'y',o}}return null}).filter(Boolean);
+ if(!steps.some(s=>s.t==='y'))return null;
+ return {id:pid+':'+(slug(d.id)||'d'+(i+1)),lv:str(d.lv||'A1',3),ic:str(d.ic||'💬',4),t:str(d.t,60),steps}}
+function importPack(txt){let o;try{o=JSON.parse(txt)}catch(e){return {err:'This is not valid JSON. Paste the whole pack text.'}}
+ if(o&&typeof o==='object'&&o.xp!==undefined&&o.u){Object.assign(S,o);save();return {ok:'Progress restored.'}}
+ if(!o||(!Array.isArray(o.units)&&!Array.isArray(o.dialogues)))return {err:'No “units” or “dialogues” found in this text.'};
+ const id=slug(o.id)||'pack'+Date.now().toString(36);
+ const units=(o.units||[]).map((u,i)=>normUnit(u,id,i)).filter(Boolean),dialogues=(o.dialogues||[]).map((d,i)=>normDlg(d,id,i)).filter(Boolean);
+ if(!units.length&&!dialogues.length)return {err:'Nothing valid found. Check the template for the format.'};
+ const name=str(o.name||id,40);S.packs[id]={id,name,units,dialogues};save();
+ return {ok:`Imported “${name}”: ${units.length} units, ${dialogues.length} conversations.`}}
+const TEMPLATE=JSON.stringify({id:'my-pack',name:'My pack',units:[{id:'u1',lv:'A2',ic:'✈️',t:'Travel',s:'Airport words',notes:[['h','Title'],['p','Explanation. <b>Bold</b> allowed.'],['ex',[['Ich fahre nach Berlin.','I go to Berlin.']]],['tbl',['','col'],[['row','cell']]],['tip','A tip']],v:[['der Zug','train'],['der Flughafen','airport'],['die Fahrkarte','ticket'],['das Gleis','platform']],x:[{t:'mc',q:'Question in English?',o:['a','b','c','d'],a:0,e:'Why'},{t:'fill',q:'Ich ___ müde. (to be)',a:['bin'],e:'sein'},{t:'order',q:'I live in Lyon.',a:'Ich wohne in Lyon.',e:'Verb 2nd'}]}],dialogues:[{id:'d1',lv:'A2',ic:'🏨',t:'Hotel',steps:[{t:'n',de:'Guten Tag!',en:'Hello!'},{t:'y',o:[{de:'Guten Tag!',en:'Hello!',ok:1},{de:'Gute Nacht!',en:'',ok:0,f:'Hint shown when wrong'}]}]}]},null,1);
+async function copyText(t,msg){try{await navigator.clipboard.writeText(t);toast(msg||'Copied')}catch(e){const a=$('#ptxt');if(a){a.value=t;a.focus();a.select()}toast('Copy it from the box')}}
+document.addEventListener('change',e=>{if(e.target.id!=='pfile'||!e.target.files[0])return;const r=new FileReader();r.onload=()=>{const res=importPack(String(r.result));UI.pmsg=res.err||res.ok;render()};r.readAsText(e.target.files[0])});
+
+const ACT={
+ tab(d){UI.tab=d.t;UI.screen='home';UI.stack=[];render()},
+ back(){back()},
+ unit(d){const i=U.findIndex(u=>u.id===d.id);if(i>=0&&!isOpen(i)){toast('Pass the test of the previous unit (70%) to unlock this one.');return}go('unit',{unit:d.id})},
+ lesson(){const u=su(UI.unit);u.lesson=1;save();go('lesson')},
+ cards(){const u=unitById(UI.unit);if(UI.screen==='lesson'){UI.stack.pop()}openDeck(u.v,u.id)},
+ practice(){const u=unitById(UI.unit);startSession({title:u.t,kind:'practice',unit:u.id,make:()=>shuffle(u.x).map(x=>({...x}))})},
+ test(){const u=unitById(UI.unit);startSession({title:u.t,kind:'test',unit:u.id,pass:70,make:()=>makeMix([u],3,7)})},
+ daily(){startSession({title:'Daily quiz',kind:'daily',make:()=>makeMix(unlocked(),4,6,true)})},
+ weak(){const q=weakQs();if(!q.length){toast('No weak words yet — keep practising!');return}const pool=U.flatMap(u=>u.v);startSession({title:'Weak words',kind:'weak',make:()=>weakQs()})},
+ say(d){say(d.t)},
+ flip(){UI.deck.flip=!UI.deck.flip;render()},
+ got(){const d=UI.deck,w=d.words.shift();S.known[w[0]]=1;if(S.miss[w[0]]){delete S.miss[w[0]]}d.done++;d.xp+=2;S.xp+=2;d.flip=false;if(!d.words.length){if(d.unit)su(d.unit).cards=1;touch()}save();render()},
+ again(){const d=UI.deck,w=d.words.shift();S.miss[w[0]]=(S.miss[w[0]]||0)+1;d.words.push(w);d.flip=false;save();render()},
+ pick(d){const s=UI.sess;if(s.ans)return;const k=+d.k;record(k===s.qs[s.i].a,s.qs[s.i].o[k],k)},
+ word(d){const s=UI.sess;if(s.ans)return;if(!s.cur.sel.includes(+d.k))s.cur.sel.push(+d.k);render()},
+ unpick(d){const s=UI.sess;if(s.ans)return;s.cur.sel=s.cur.sel.filter(k=>k!==+d.k);render()},
+ ch(d){const i=$('#fi');if(!i)return;const p=i.selectionStart||i.value.length;i.value=i.value.slice(0,p)+d.c+i.value.slice(i.selectionEnd||p);i.focus();i.setSelectionRange(p+1,p+1)},
+ check(){checkAnswer()},
+ next(){const s=UI.sess;s.ans=null;s.i++;if(s.i>=s.qs.length)finishSession();else render()},
+ retry(){const s=UI.sess;startSession({title:s.title,kind:s.kind,unit:s.unit,pass:s.pass,make:s.make})},
+ aion(){S.ai=!S.ai;if(!S.ai)UI.chat=null;save();render()},
+ scn(d){startChat(d.id)},
+ send(){sendChat()},
+ mic(){toggleMic()},
+ chatback(){UI.chat=null;render()},
+ dlg(d){startDlg(d.id)},
+ dpick(d){const D=UI.dlg,st=D.d.steps[D.i],o=st.o[+d.k];if(o.ok){if(!D.miss)D.score++;D.hist.push({r:'u',de:o.de,en:o.en});D.i++;dlgAdv()}else{D.miss=true;D.bad[d.k]=1;D.fb=o.f||'Not quite — try another reply.'}render()},
+ dback(){UI.dlg=null;render()},
+ dretry(){startDlg(UI.dlg.d.id)},
+ trtoggle(){S.tr=S.tr===false;save();render()},
+ weakcards(){const w=U.concat(packUnits()).flatMap(u=>u.v).filter(w=>S.miss[w[0]]);if(!w.length){toast('No weak words yet');return}openDeck(w,null)},
+ randcards(){openDeck(shuffle(unlocked().flatMap(u=>u.v)).slice(0,20),null)},
+ pimport(){const t=($('#ptxt').value||'').trim();if(!t){UI.pmsg='Paste a pack first.';render();return}const r=importPack(t);UI.pmsg=r.err||r.ok;render()},
+ ptemplate(){copyText(TEMPLATE,'Template copied')},
+ pbackup(){copyText(JSON.stringify(S),'Backup copied — paste it into Import to restore')},
+ prem(d){if(UI.rp!==d.id){UI.rp=d.id;render();setTimeout(()=>{UI.rp=null;if(UI.tab==='me'&&UI.screen==='home')render()},4000);return}delete S.packs[d.id];UI.rp=null;save();render();toast('Pack removed')},
+ set(d){S[d.k]=d.v;save();render()},
+ unlockall(){S.all=!S.all;save();render()},
+ reset(){if(!UI.rs){UI.rs=true;render();setTimeout(()=>{UI.rs=false;if(UI.tab==='me'&&UI.screen==='home')render()},4000);return}UI.rs=false;S={xp:0,streak:0,last:'',u:{},known:{},miss:{},lang:S.lang,lvl:S.lvl,all:false,ts:0,packs:S.packs,dlg:{},tr:S.tr};save();render();toast('Progress erased')}
+};
+document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(!el)return;const f=ACT[el.dataset.a];if(f)f(el.dataset,el,e)});
+document.addEventListener('keydown',e=>{
+ if(e.key==='Enter'&&e.target.id==='fi'){e.preventDefault();ACT.check()}
+ if(e.key==='Enter'&&!e.shiftKey&&e.target.id==='ci'&&window.matchMedia('(hover:hover)').matches){e.preventDefault();sendChat()}
+});
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,544 @@
+{
+ "id": "school",
+ "name": "School pack",
+ "version": 1,
+ "units": [
+  {
+   "id": "s1",
+   "lv": "A2",
+   "ic": "🎒",
+   "t": "School life",
+   "s": "Classroom, homework, exams",
+   "notes": [
+    [
+     "h",
+     "Everyday school phrases"
+    ],
+    [
+     "ex",
+     [
+      [
+       "Ich gehe zur Schule.",
+       "I go to school."
+      ],
+      [
+       "Wir schreiben morgen eine Prüfung.",
+       "We have an exam tomorrow."
+      ],
+      [
+       "Ich mache meine Hausaufgaben.",
+       "I do my homework."
+      ],
+      [
+       "Die Pause beginnt um zehn Uhr.",
+       "The break starts at ten."
+      ],
+      [
+       "Der Lehrer schreibt an die Tafel.",
+       "The teacher writes on the board."
+      ]
+     ]
+    ],
+    [
+     "tip",
+     "Where to? → zur Schule / in die Schule gehen. Where? → in der Schule sein (dative)."
+    ]
+   ],
+   "v": [
+    [
+     "die Schule",
+     "school"
+    ],
+    [
+     "der Lehrer",
+     "teacher (m)"
+    ],
+    [
+     "die Lehrerin",
+     "teacher (f)"
+    ],
+    [
+     "der Schüler",
+     "pupil"
+    ],
+    [
+     "die Klasse",
+     "class"
+    ],
+    [
+     "das Klassenzimmer",
+     "classroom"
+    ],
+    [
+     "die Hausaufgabe",
+     "homework"
+    ],
+    [
+     "die Prüfung",
+     "exam"
+    ],
+    [
+     "die Note",
+     "grade"
+    ],
+    [
+     "der Stundenplan",
+     "timetable"
+    ],
+    [
+     "die Pause",
+     "break"
+    ],
+    [
+     "der Kuli",
+     "pen"
+    ],
+    [
+     "das Heft",
+     "notebook"
+    ],
+    [
+     "die Tafel",
+     "board"
+    ],
+    [
+     "der Rucksack",
+     "backpack"
+    ]
+   ],
+   "x": [
+    {
+     "t": "mc",
+     "q": "“die Hausaufgabe” means…",
+     "o": [
+      "homework",
+      "exam",
+      "break",
+      "grade"
+     ],
+     "a": 0,
+     "e": ""
+    },
+    {
+     "t": "fill",
+     "q": "Ich mache meine ___. (homework, plural)",
+     "a": [
+      "Hausaufgaben"
+     ],
+     "e": "Usually used in the plural."
+    },
+    {
+     "t": "mc",
+     "q": "Wir schreiben morgen eine ___.",
+     "o": [
+      "Prüfung",
+      "Pause",
+      "Tafel",
+      "Klasse"
+     ],
+     "a": 0,
+     "e": "eine Prüfung schreiben = to sit an exam."
+    },
+    {
+     "t": "fill",
+     "q": "Die ___ beginnt um zehn Uhr. (break)",
+     "a": [
+      "Pause"
+     ],
+     "e": ""
+    },
+    {
+     "t": "mc",
+     "q": "Ich bin ___ Schule. (I am AT school)",
+     "o": [
+      "in der",
+      "in die",
+      "zu der",
+      "nach der"
+     ],
+     "a": 0,
+     "e": "Where? → dative: in der Schule."
+    },
+    {
+     "t": "mc",
+     "q": "Ich gehe ___ Schule. (I go TO school)",
+     "o": [
+      "in der",
+      "zur",
+      "bei der",
+      "von der"
+     ],
+     "a": 1,
+     "e": "zur = zu der."
+    },
+    {
+     "t": "order",
+     "q": "The teacher is writing on the board.",
+     "a": "Der Lehrer schreibt an die Tafel.",
+     "e": "Where to? → accusative: an die Tafel."
+    },
+    {
+     "t": "mc",
+     "q": "“der Stundenplan” is…",
+     "o": [
+      "the timetable",
+      "the break",
+      "the backpack",
+      "the pupil"
+     ],
+     "a": 0,
+     "e": ""
+    },
+    {
+     "t": "order",
+     "q": "I have a backpack and a pen.",
+     "a": "Ich habe einen Rucksack und einen Kuli.",
+     "e": "Masculine accusative: einen."
+    }
+   ]
+  },
+  {
+   "id": "s2",
+   "lv": "A2",
+   "ic": "📚",
+   "t": "Subjects & timetable",
+   "s": "Say what you study and like",
+   "notes": [
+    [
+     "h",
+     "Talking about subjects"
+    ],
+    [
+     "ex",
+     [
+      [
+       "Mein Lieblingsfach ist Physik.",
+       "My favourite subject is physics."
+      ],
+      [
+       "Am Montag habe ich Mathe und Sport.",
+       "On Monday I have maths and PE."
+      ],
+      [
+       "Ich finde Chemie interessant.",
+       "I find chemistry interesting."
+      ],
+      [
+       "Ich bin gut in Mathe.",
+       "I am good at maths."
+      ],
+      [
+       "Ich lerne Deutsch seit zwei Jahren.",
+       "I have been learning German for two years."
+      ]
+     ]
+    ],
+    [
+     "tip",
+     "Opinion: Ich finde + noun + adjective. Duration up to now: seit + dative (seit zwei Jahren)."
+    ]
+   ],
+   "v": [
+    [
+     "das Fach",
+     "subject"
+    ],
+    [
+     "Mathe",
+     "maths"
+    ],
+    [
+     "Deutsch",
+     "German"
+    ],
+    [
+     "Englisch",
+     "English"
+    ],
+    [
+     "Französisch",
+     "French"
+    ],
+    [
+     "Geschichte",
+     "history"
+    ],
+    [
+     "Erdkunde",
+     "geography"
+    ],
+    [
+     "Biologie",
+     "biology"
+    ],
+    [
+     "Physik",
+     "physics"
+    ],
+    [
+     "Chemie",
+     "chemistry"
+    ],
+    [
+     "Sport",
+     "PE"
+    ],
+    [
+     "Kunst",
+     "art"
+    ],
+    [
+     "Musik",
+     "music"
+    ],
+    [
+     "das Lieblingsfach",
+     "favourite subject"
+    ],
+    [
+     "Informatik",
+     "computer science"
+    ]
+   ],
+   "x": [
+    {
+     "t": "fill",
+     "q": "Mein ___ ist Physik. (favourite subject)",
+     "a": [
+      "Lieblingsfach"
+     ],
+     "e": ""
+    },
+    {
+     "t": "mc",
+     "q": "Which subject is “geography”?",
+     "o": [
+      "Erdkunde",
+      "Geschichte",
+      "Kunst",
+      "Musik"
+     ],
+     "a": 0,
+     "e": ""
+    },
+    {
+     "t": "fill",
+     "q": "Am Montag ___ ich Mathe und Sport. (haben)",
+     "a": [
+      "habe"
+     ],
+     "e": ""
+    },
+    {
+     "t": "mc",
+     "q": "Ich finde Chemie ___.",
+     "o": [
+      "interessant",
+      "interessiert",
+      "Interesse",
+      "interessieren"
+     ],
+     "a": 0,
+     "e": "finden + adjective."
+    },
+    {
+     "t": "order",
+     "q": "My favourite subject is physics.",
+     "a": "Mein Lieblingsfach ist Physik.",
+     "e": ""
+    },
+    {
+     "t": "mc",
+     "q": "Ich bin gut ___ Mathe.",
+     "o": [
+      "in",
+      "an",
+      "bei",
+      "mit"
+     ],
+     "a": 0,
+     "e": "gut in + dative."
+    },
+    {
+     "t": "fill",
+     "q": "Ich lerne Deutsch ___ zwei Jahren. (since)",
+     "a": [
+      "seit"
+     ],
+     "e": "seit + dative."
+    },
+    {
+     "t": "order",
+     "q": "We have German on Tuesday.",
+     "a": "Wir haben am Dienstag Deutsch.",
+     "e": ""
+    }
+   ]
+  }
+ ],
+ "dialogues": [
+  {
+   "id": "talk1",
+   "lv": "A2",
+   "ic": "🏫",
+   "t": "Talking about school",
+   "steps": [
+    {
+     "t": "n",
+     "de": "Hallo! In welche Klasse gehst du?",
+     "en": "Hi! Which class are you in?"
+    },
+    {
+     "t": "y",
+     "o": [
+      {
+       "de": "Ich gehe in die neunte Klasse.",
+       "en": "I am in ninth grade.",
+       "ok": 1
+      },
+      {
+       "de": "Ich gehe in der neunten Klasse.",
+       "en": "",
+       "ok": 0,
+       "f": "With gehen (movement) use accusative: in die neunte Klasse. (Ich bin in der neunten Klasse works with sein.)"
+      }
+     ]
+    },
+    {
+     "t": "n",
+     "de": "Und was ist dein Lieblingsfach?",
+     "en": "And what is your favourite subject?"
+    },
+    {
+     "t": "y",
+     "o": [
+      {
+       "de": "Mein Lieblingsfach ist Geschichte.",
+       "en": "My favourite subject is history.",
+       "ok": 1
+      },
+      {
+       "de": "Mein Lieblingsfach bin Geschichte.",
+       "en": "",
+       "ok": 0,
+       "f": "The subject of the sentence is a thing → ist."
+      }
+     ]
+    },
+    {
+     "t": "n",
+     "de": "Warum magst du Geschichte?",
+     "en": "Why do you like history?"
+    },
+    {
+     "t": "y",
+     "o": [
+      {
+       "de": "Weil ich die Vergangenheit interessant finde.",
+       "en": "Because I find the past interesting.",
+       "ok": 1
+      },
+      {
+       "de": "Weil ich finde die Vergangenheit interessant.",
+       "en": "",
+       "ok": 0,
+       "f": "After weil the verb goes to the END."
+      }
+     ]
+    },
+    {
+     "t": "n",
+     "de": "Hast du heute viele Hausaufgaben?",
+     "en": "Do you have a lot of homework today?"
+    },
+    {
+     "t": "y",
+     "o": [
+      {
+       "de": "Nein, ich habe nur wenige Hausaufgaben.",
+       "en": "No, I only have a few homework assignments.",
+       "ok": 1
+      },
+      {
+       "de": "Nein, ich haben nur wenige Hausaufgaben.",
+       "en": "",
+       "ok": 0,
+       "f": "ich → habe."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "talk2",
+   "lv": "A2",
+   "ic": "🙋",
+   "t": "Asking the teacher",
+   "steps": [
+    {
+     "t": "n",
+     "de": "Guten Morgen! Haben Sie eine Frage?",
+     "en": "Good morning! Do you have a question?"
+    },
+    {
+     "t": "y",
+     "o": [
+      {
+       "de": "Guten Morgen! Können Sie das bitte wiederholen?",
+       "en": "Good morning! Can you repeat that please?",
+       "ok": 1
+      },
+      {
+       "de": "Guten Morgen! Können Sie das bitte wiederholt?",
+       "en": "",
+       "ok": 0,
+       "f": "After a modal verb use the infinitive (wiederholen)."
+      }
+     ]
+    },
+    {
+     "t": "n",
+     "de": "Natürlich. Was haben Sie nicht verstanden?",
+     "en": "Of course. What didn’t you understand?"
+    },
+    {
+     "t": "y",
+     "o": [
+      {
+       "de": "Ich habe das Wort „Konjunktiv“ nicht verstanden.",
+       "en": "I did not understand the word “Konjunktiv”.",
+       "ok": 1
+      },
+      {
+       "de": "Ich habe das Wort „Konjunktiv“ nicht verstehen.",
+       "en": "",
+       "ok": 0,
+       "f": "Perfekt: haben + participle (verstanden)."
+      }
+     ]
+    },
+    {
+     "t": "n",
+     "de": "Das ist eine Verbform für Wünsche. Verstehen Sie jetzt?",
+     "en": "It is a verb form for wishes. Do you understand now?"
+    },
+    {
+     "t": "y",
+     "o": [
+      {
+       "de": "Ja, jetzt ist es klar. Vielen Dank!",
+       "en": "Yes, now it is clear. Thank you!",
+       "ok": 1
+      },
+      {
+       "de": "Ja, jetzt bin es klar.",
+       "en": "",
+       "ok": 0,
+       "f": "es ist klar."
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
